@@ -40,10 +40,15 @@ ask() {
     done
 }
 
-if [ -e "$HOME/.bashrc" ]; then
-	ask "~/.bashrc already exists, are you sure you want to replace it?" Y && cp .bashrc "$HOME/"
-else
+install_bashrc() {
 	cp .bashrc "$HOME/"
+	source "$HOME/.bashrc"
+}
+
+if [ -e "$HOME/.bashrc" ]; then
+	ask "~/.bashrc already exists, are you sure you want to replace it?" Y && install_bashrc
+else
+	install_bashrc
 fi
 
 install_vimrc() {
