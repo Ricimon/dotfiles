@@ -6,4 +6,4 @@ To use these configs,
 	- `source ./setup`
 - cleanup (optional)
 	- `cd ..`
-	- `rm -r WSL-config`
+	- `rm -rf WSL-config`
