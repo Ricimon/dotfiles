@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # This is a general-purpose function to ask Yes/No questions in Bash, either
 # with or without a default answer. It keeps repeating the question until it
@@ -40,19 +40,19 @@ ask() {
     done
 }
 
-vundle_dir="~/.vim/bundle/Vundle.vim"
+vundle_dir="$HOME/.vim/bundle/Vundle.vim"
 if [ ! -d "$vundle_dir" ]; then
 	git clone https://github.com/VundleVim/Vundle.vim.git "$vundle_dir"
 fi
 
-rcs=( ".bashrc" ".vimrc" )
+rcs=(".bashrc" ".vimrc")
 for i in "${rcs[@]}" 
 do
-	dir="~/${i}"
+	dir="$HOME/${i}"
 	copy_rc() {
 		cp "$i" "$dir"
 	}
-	if [ -d "$dir" ]; then
+	if [ -e "$dir" ]; then
 		ask "$dir already exists, are you sure you want to replace it?" Y && copy_rc
 	else
 		copy_rc
