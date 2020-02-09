@@ -3,7 +3,7 @@ To use these configs,
 	- `git clone https://github.com/Ricimon/WSL-config`
 	- `cd WSL-config`
 - run setup
-	- `./setup`
+	- `source ./setup`
 - cleanup (optional)
 	- `cd ..`
 	- `rm -r WSL-config`

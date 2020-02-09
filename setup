@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # This is a general-purpose function to ask Yes/No questions in Bash, either
 # with or without a default answer. It keeps repeating the question until it
@@ -42,7 +42,7 @@ ask() {
 
 install_bashrc() {
 	cp .bashrc "$HOME/"
-	exec "$BASH"
+	source "$HOME/.bashrc"
 }
 
 if [ -e "$HOME/.bashrc" ]; then
@@ -58,6 +58,7 @@ install_vimrc() {
 		git clone https://github.com/VundleVim/Vundle.vim.git "$vundle_dir"
 	fi
 	vim +PluginInstall +qall
+	echo "Go to https://github.com/ycm-core/YouCompleteMe#installation for instructions on finishing the YCM vim-plugin install"
 }
 
 if [ -e "$HOME/.vimrc" ]; then
