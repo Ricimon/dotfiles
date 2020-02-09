@@ -42,7 +42,7 @@ ask() {
 
 install_bashrc() {
 	cp .bashrc "$HOME/"
-	. "$HOME/.bashrc"
+	exec "$BASH"
 }
 
 if [ -e "$HOME/.bashrc" ]; then
