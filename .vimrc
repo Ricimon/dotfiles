@@ -1,19 +1,30 @@
 set t_Co=256
 set background=dark
 set t_ut=""
+set term=screen-256color
 
-"colo desert 
+if (has("termguicolors"))
+	let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+	let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+	set termguicolors
+endif
+
 syntax on
 
 set clipboard=unnamed
 set number
 set noeb vb t_vb=
+set formatoptions-=t
+set formatoptions-=cro
 
 " Enable folding
 set foldmethod=indent
 set foldlevel=99
 " Enable folding with the spacebar
 nnoremap <space> za
+
+" eliminate delay on esc
+set timeoutlen=1000 ttimeoutlen=0
 
 set nocompatible		" required
 filetype off			" required
@@ -30,28 +41,40 @@ Plugin 'VundleVim/Vundle.vim'
 " add all your plugins here (note older versions of Vundle
 " used Bundle instead of Plugin)
 
-Plugin 'vim-scripts/indentpython.vim'
+Plugin 'preservim/nerdtree'
+Plugin 'OmniSharp/omnisharp-vim'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'dense-analysis/ale'
 Plugin 'vim-syntastic/syntastic'
+Plugin 'vim-scripts/indentpython.vim'
 Plugin 'nvie/vim-flake8'
-Plugin 'jnurmine/Zenburn'
-Plugin 'altercation/vim-colors-solarized'
 
 " All of your Plugins must be added before the following line
 call vundle#end()		" required
 filetype plugin indent on	" required
 
+" auto-install vim-plug
+if empty(glob('~/.vim/autoload/plug.vim'))
+	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+		\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+call plug#begin()
+
+" add all vim-plug plugins here
+Plug '/home/linuxbrew/.linuxbrew/opt/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'drewtempelmeyer/palenight.vim'
+
+call plug#end()
+filetype indent plugin on
+
+colorscheme palenight
+let g:palenight_terminal_italics=1
+
 let g:ycm_autoclose_preview_window_after_completion=1
 map <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 let python_highlight_all=1
-
-if has('gui_running')
-	set background=dark
-	colorscheme solarized
-else
-	colorscheme zenburn
-endif
-call togglebg#map("<F5>")
 
 au BufNewFile,BufRead *.py
 	\ set tabstop=4 |
@@ -71,3 +94,5 @@ au BufNewFile,BufRead *.js, *.html, *.css
 	\ set softtabstop=2
 	\ set shiftwidth=2
 
+" limit ALE to only use OmniSharp
+let g:ale_linters = { 'cs': ['OmniSharp'] }

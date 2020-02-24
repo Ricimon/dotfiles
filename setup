@@ -40,15 +40,33 @@ ask() {
     done
 }
 
+install_bash_aliases() {
+	cp .bash_aliases "$HOME/"
+}
+if [ -e "$HOME/.bash_aliases" ]; then
+	ask "~/.bash_aliases already exists, are you sure you want to replace it?" Y && install_bash_aliases
+else
+	install_bash_aliases
+fi
+
 install_bashrc() {
 	cp .bashrc "$HOME/"
-	source "$HOME/.bashrc"
+	[ -n "`$SHELL -c 'echo $BASH_VERSION'`" ] && source "$HOME/.bashrc"
 }
-
 if [ -e "$HOME/.bashrc" ]; then
 	ask "~/.bashrc already exists, are you sure you want to replace it?" Y && install_bashrc
 else
 	install_bashrc
+fi
+
+install_zshrc() {
+	cp .zshrc "$HOME/"
+	[ -n "`$SHELL -c 'echo $ZSH_VERSION'`" ] && source "$HOME/.zshrc"
+}
+if [ -e "$HOME/.zshrc" ]; then
+	ask "~/.zshrc already exists, are you sure you want to replace it?" Y && install_zshrc
+else
+	install_zshrc
 fi
 
 install_vimrc() {
@@ -60,7 +78,6 @@ install_vimrc() {
 	vim +PluginInstall +qall
 	echo "Go to https://github.com/ycm-core/YouCompleteMe#installation for instructions on finishing the YCM vim-plugin install"
 }
-
 if [ -e "$HOME/.vimrc" ]; then
 	ask "~/.vimrc already exists, are you sure you want to replace it?" Y && install_vimrc
 else

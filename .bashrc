@@ -2,6 +2,11 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+# Launch zsh
+if [ -t 1 ]; then
+	exec zsh
+fi
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -128,3 +133,9 @@ export PS1='\e[37;1m\u@\h \[\e[32m\]\w\[\e[33m\]$(parse_git_branch)\[\e[00m\] \$
 bind '"\e[6~": menu-complete'
 bind '"\e[5~": menu-complete-backward'
 
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+[ -f /home/linuxbrew/.linuxbrew/bin/brew ] && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+
+# computer-specific bash configs
+[ -f ~/.config.bash ] && source ~/.config.bash
