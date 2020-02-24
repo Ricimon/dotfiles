@@ -84,3 +84,11 @@ else
 	install_vimrc
 fi
 
+install_tmux_conf () {
+	cp .tmux.conf "$HOME/"
+}
+if [ -e "$HOME/.tmux.conf" ]; then
+	ask "~/.tmux.conf already exists, are you sure you want to replace it?" Y && install_tmux_conf
+else
+	install_tmux_conf
+fi
