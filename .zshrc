@@ -109,7 +109,14 @@ KEYTIMEOUT=1
 
 [ -f /home/linuxbrew/.linuxbrew/bin/brew ] && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
+if [ -d ~/.pyenv ]; then
+	export PYENV_ROOT="$HOME/.pyenv"
+	export PATH="$PYENV_ROOT/bin:$PATH"
+fi
+
 # computer-specific bash configs
 [ -f ~/.config.bash ] && source ~/.config.bash
 
+# end-of-zsh commands
+command -v pyenv 1>/dev/null 2>&1 && eval "$(pyenv init -)"
 [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
