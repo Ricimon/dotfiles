@@ -1,5 +1,10 @@
 ## Dependencies
 - vim
+- Vundle
+	- `git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim`
+- powerline-fonts
+
+## Supported packages
 - oh-my-zsh
 	- `sudo apt-get install zsh`
 	- `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
@@ -16,7 +21,6 @@
 	- `$(brew --prefix)/opt/fzf/install`
 - zsh-syntax-highlighting
 	- `sudo apt-get install zsh-syntax-highlighting`
-- powerline-fonts
 
 ## To use these configs
 - clone and enter repo
