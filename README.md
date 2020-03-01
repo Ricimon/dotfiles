@@ -21,7 +21,7 @@
 	- (macOS) `brew install pyenv`
 	- (linux) `git clone https://github.com/pyenv/pyenv.git ~/.pyenv`
 - dircolors-solarized (Windows/WSL)
-	- `git clone https://github.com/seebi/dircolors-solarized.git ~/.dircolors/`
+	- `git clone https://github.com/seebi/dircolors-solarized.git ~/.dircolors/dircolors-solarized`
 - linuxbrew (linux)
 	- `sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"`
 	- `eval $(~/.linuxbrew/bin/brew shellenv)`
