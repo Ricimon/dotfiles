@@ -107,5 +107,6 @@ KEYTIMEOUT=1
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
+[ -f /usr/share/zsh/vendor-completions/_fzf ] && source /usr/share/zsh/vendor-completions/_fzf
 
 source ~/.common.bash

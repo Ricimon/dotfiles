@@ -76,7 +76,7 @@ endif
 call plug#begin()
 
 " add all vim-plug plugins here
-Plug '/home/linuxbrew/.linuxbrew/opt/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'drewtempelmeyer/palenight.vim'
 
