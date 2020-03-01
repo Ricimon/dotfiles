@@ -5,8 +5,10 @@
 	- use `vim-gtk` for Windows copy-paste support
 - Vundle
 	- auto-installed in `.vimrc`
+	- manual install/update: `vim +PluginInstall +qall`
 - vim-plug
 	- auto-installed in `.vimrc`
+	- manual install/update: `vim +PlugInstall +qall`
 - powerline-fonts
 	- https://github.com/powerline/fonts
 	- Requires custom installation in iTerm2 (macOS) and all Windows terminals
@@ -26,9 +28,11 @@
 	- `sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"`
 	- `eval $(~/.linuxbrew/bin/brew shellenv)`
 - homebrew (macOS)
+	- `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
 - fzf
-	- `brew install fzf`
-	- `$(brew --prefix)/opt/fzf/install`
+	- (macOS/linuxbrew) `brew install fzf`
+	- (macOS/linuxbrew) `$(brew --prefix)/opt/fzf/install`
+	- (Debian) `sudo apt-get install fzf`
 - zsh-syntax-highlighting
 	- `sudo apt-get install zsh-syntax-highlighting`
 
