@@ -49,34 +49,17 @@ else
 	install_bash_aliases
 fi
 
-install_bashrc() {
-	cp .bashrc "$HOME/"
-	[ -n "`$SHELL -c 'echo $BASH_VERSION'`" ] && source "$HOME/.bashrc"
+install_common_bash() {
+	cp .common.bash "$HOME/"
 }
-if [ -e "$HOME/.bashrc" ]; then
-	ask "~/.bashrc already exists, are you sure you want to replace it?" Y && install_bashrc
+if [ -e "$HOME/.common.bash" ]; then
+	ask "~/.common.bash already exists, are you sure you want to replace it?" Y && install_common_bash
 else
-	install_bashrc
-fi
-
-install_zshrc() {
-	cp .zshrc "$HOME/"
-	[ -n "`$SHELL -c 'echo $ZSH_VERSION'`" ] && source "$HOME/.zshrc"
-}
-if [ -e "$HOME/.zshrc" ]; then
-	ask "~/.zshrc already exists, are you sure you want to replace it?" Y && install_zshrc
-else
-	install_zshrc
+	install_common_bash
 fi
 
 install_vimrc() {
 	cp .vimrc "$HOME/"
-	vundle_dir="$HOME/.vim/bundle/Vundle.vim"
-	if [ ! -d "$vundle_dir" ]; then
-		git clone https://github.com/VundleVim/Vundle.vim.git "$vundle_dir"
-	fi
-	vim +PluginInstall +qall
-	echo "Go to https://github.com/ycm-core/YouCompleteMe#installation for instructions on finishing the YCM vim-plugin install"
 }
 if [ -e "$HOME/.vimrc" ]; then
 	ask "~/.vimrc already exists, are you sure you want to replace it?" Y && install_vimrc
@@ -91,4 +74,24 @@ if [ -e "$HOME/.tmux.conf" ]; then
 	ask "~/.tmux.conf already exists, are you sure you want to replace it?" Y && install_tmux_conf
 else
 	install_tmux_conf
+fi
+
+install_bashrc() {
+	cp .bashrc "$HOME/"
+	[ -n "`echo $BASH_VERSION`" ] && source "$HOME/.bashrc"
+}
+if [ -e "$HOME/.bashrc" ]; then
+	ask "~/.bashrc already exists, are you sure you want to replace it?" Y && install_bashrc
+else
+	install_bashrc
+fi
+
+install_zshrc() {
+	cp .zshrc "$HOME/"
+	[ -n "`echo $ZSH_VERSION`" ] && source "$HOME/.zshrc"
+}
+if [ -e "$HOME/.zshrc" ]; then
+	ask "~/.zshrc already exists, are you sure you want to replace it?" Y && install_zshrc
+else
+	install_zshrc
 fi

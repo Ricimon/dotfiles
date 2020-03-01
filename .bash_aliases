@@ -1,3 +1,3 @@
 alias ll='ls -l'
-alias la='ls -A'
+alias la='ls -Al'
 alias l='ls -CF'

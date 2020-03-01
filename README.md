@@ -1,8 +1,15 @@
+**Place custom shell initialization logic in `.config.bash`**
+
 ## Dependencies
 - vim
+	- use `vim-gtk` for Windows copy-paste support
 - Vundle
-	- `git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim`
+	- auto-installed in `.vimrc`
+- vim-plug
+	- auto-installed in `.vimrc`
 - powerline-fonts
+	- https://github.com/powerline/fonts
+	- Requires custom installation in iTerm2 (macOS) and all Windows terminals
 
 ## Supported packages
 - oh-my-zsh
@@ -10,12 +17,15 @@
 	- `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
 - tmux
 	- `sudo apt-get install tmux`
-- dircolors-solarized (if on Windows/WSL)
+- pyenv
+	- (macOS) `brew install pyenv`
+	- (linux) `git clone https://github.com/pyenv/pyenv.git ~/.pyenv`
+- dircolors-solarized (Windows/WSL)
 	- `git clone https://github.com/seebi/dircolors-solarized.git ~/.dircolors/`
-- linuxbrew (if on linux)
+- linuxbrew (linux)
 	- `sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"`
 	- `eval $(~/.linuxbrew/bin/brew shellenv)`
-- homebrew (if on mac)
+- homebrew (macOS)
 - fzf
 	- `brew install fzf`
 	- `$(brew --prefix)/opt/fzf/install`
