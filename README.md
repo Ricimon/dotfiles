@@ -1,4 +1,4 @@
-**Place custom shell initialization logic in `.config.bash`**
+**Place computer-specific shell initialization logic in `~/.config.bash`**
 
 ## Dependencies
 - vim
