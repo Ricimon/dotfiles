@@ -26,6 +26,13 @@ nnoremap <space> za
 " eliminate delay on esc
 set timeoutlen=1000 ttimeoutlen=0
 
+" auto-install Vundle
+let freshVundleInstall=0
+if empty(glob('~/.vim/bundle/Vundle.vim'))
+	silent !git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
+	freshVundleInstall=1
+endif
+
 set nocompatible		" required
 filetype off			" required
 
@@ -48,6 +55,11 @@ Plugin 'dense-analysis/ale'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'nvie/vim-flake8'
+
+if freshVundleInstall == 1
+	:PluginInstall
+	echo "Go to https://github.com/ycm-core/YouCompleteMe#installation for instructions on finishing the YCM vim-plugin install"
+endif
 
 " All of your Plugins must be added before the following line
 call vundle#end()		" required
