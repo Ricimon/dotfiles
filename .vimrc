@@ -30,7 +30,7 @@ set timeoutlen=1000 ttimeoutlen=0
 let freshVundleInstall=0
 if empty(glob('~/.vim/bundle/Vundle.vim'))
 	silent !git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
-	freshVundleInstall=1
+	let freshVundleInstall=1
 endif
 
 set nocompatible		" required
@@ -66,10 +66,12 @@ call vundle#end()		" required
 filetype plugin indent on	" required
 
 " auto-install vim-plug
+let freshVimPlugInstall=0
 if empty(glob('~/.vim/autoload/plug.vim'))
 	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
 		\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+	let freshVimPlugInstall=1
 endif
 call plug#begin()
 
@@ -78,8 +80,11 @@ Plug '/home/linuxbrew/.linuxbrew/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'drewtempelmeyer/palenight.vim'
 
+if freshVimPlugInstall == 1
+	:PlugInstall --sync | source $MYVIMRC
+endif
+
 call plug#end()
-filetype indent plugin on
 
 colorscheme palenight
 let g:palenight_terminal_italics=1
