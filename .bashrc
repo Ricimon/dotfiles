@@ -133,4 +133,7 @@ export PS1='\e[37;1m\u@\h \[\e[32m\]\w\[\e[33m\]$(parse_git_branch)\[\e[00m\] \$
 bind '"\e[6~": menu-complete'
 bind '"\e[5~": menu-complete-backward'
 
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f /usr/share/doc/fzf/examples/key-bindings.bash ] && source /usr/share/doc/fzf/examples/key-bindings.bash
+
 source ~/.common.bash

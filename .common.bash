@@ -1,7 +1,5 @@
 [ -f ~/.bash_aliases ] && source ~/.bash_aliases
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 [ -f /home/linuxbrew/.linuxbrew/bin/brew ] && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
 if [ -d ~/.pyenv ]; then

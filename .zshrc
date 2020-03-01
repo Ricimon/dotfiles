@@ -105,4 +105,7 @@ source $ZSH/oh-my-zsh.sh
 # 10ms for key sequences
 KEYTIMEOUT=1
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
+
 source ~/.common.bash
