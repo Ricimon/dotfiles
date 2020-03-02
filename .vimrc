@@ -19,7 +19,10 @@ set formatoptions-=cro
 set tabstop=4
 set softtabstop=0 noexpandtab
 set shiftwidth=4
-set smartindent
+set textwidth=0
+set wrap
+set linebreak
+set nolist  " list disables linebreak
 
 " Enable folding
 set foldmethod=indent
