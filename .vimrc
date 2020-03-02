@@ -61,6 +61,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-fugitive'
 Plugin 'preservim/nerdtree'
+Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'OmniSharp/omnisharp-vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'dense-analysis/ale'
@@ -129,3 +130,11 @@ au BufNewFile,BufRead *.js, *.html, *.css
 
 " limit ALE to only use OmniSharp
 let g:ale_linters = { 'cs': ['OmniSharp'] }
+
+" NERDTree bindings and settings
+map <C-n> :NERDTreeToggle<CR>
+" open a NERDTree automatically when vim starts up if no files were specified
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTREE | endif
+" close vim if the only window left open is a NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
