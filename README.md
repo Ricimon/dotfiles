@@ -2,7 +2,7 @@
 
 ## Dependencies
 - vim
-	- use `vim-gtk` for Windows copy-paste support
+	- use `vim-gtk` for Windows copy-paste support on WSL
 - Vundle
 	- auto-installed in `.vimrc`
 	- manual install/update: `vim +PluginInstall +qall`
@@ -14,11 +14,15 @@
 	- Requires custom installation in iTerm2 (macOS) and all Windows terminals
 
 ## Supported packages
-- oh-my-zsh
+- zsh
 	- `sudo apt-get install zsh`
-	- `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
-- tmux
-	- `sudo apt-get install tmux`
+	- `chsh -s $(which zsh)` (optional, sets default shell to zsh)
+- [zgen](https://github.com/tarjoilija/zgen) (required for zsh)
+	- `git clone https://github.com/tarjoilija/zgen.git ~/.zgen`
+	- plugins:
+		- oh-my-zsh
+		- tmux
+		- zsh-syntax-highlighting
 - pyenv
 	- (macOS) `brew install pyenv`
 	- (linux) `git clone https://github.com/pyenv/pyenv.git ~/.pyenv`
@@ -30,18 +34,13 @@
 - homebrew (macOS)
 	- `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
 - fzf
-	- (macOS/linuxbrew) `brew install fzf`
-	- (macOS/linuxbrew) `$(brew --prefix)/opt/fzf/install`
-	- (Debian) `sudo apt-get install fzf`
-- zsh-syntax-highlighting
-	- `sudo apt-get install zsh-syntax-highlighting`
+	- `brew install fzf`
+	- `$(brew --prefix)/opt/fzf/install`
 
-## To use these configs
-- clone and enter repo
-	- `git clone https://github.com/Ricimon/shell-config.git`
-	- `cd shell-config`
-- run setup
-	- `source ./setup`
-- cleanup (optional)
-	- `cd ..`
-	- `rm -rf shell-config`
+### These dotfiles are installed using [Dotbot](https://github.com/anishathalye/dotbot)
+- `git clone https://github.com/Ricimon/dotfiles.git`
+- `cd dotfiles`
+- `./install`
+
+### Extra
+`zsh` is the shell of choice, but note that `zsh` does not source `~/.profile`, but instead sources `~/.zprofile`. A quick workaround is to run `ln -s ~/.profile ~/.zprofile` so long as `~/.profile` only defines environment variables

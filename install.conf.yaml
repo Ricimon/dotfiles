@@ -1,0 +1,21 @@
+- defaults:
+    link:
+        relink: true
+
+- clean: ~/
+
+- link:
+    ~/.bash_aliases: .bash_aliases
+    ~/.bashrc: .bashrc
+    ~/.common.bash: .common.bash
+    ~/.tmux.conf: .tmux.conf
+    ~/.vimrc: .vimrc
+    ~/.zshrc: .zshrc
+
+- shell:
+    -
+        command: chsh -s $(which zsh)
+        stdin: true
+        stdout: true
+        stderr: true
+        description: Making zsh the default shell

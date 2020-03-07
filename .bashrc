@@ -2,10 +2,10 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-# Launch zsh
-if [ -t 1 ]; then
-	exec zsh
-fi
+# # Launch zsh
+# if [ -t 1 ]; then
+# 	exec zsh
+# fi
 
 # If not running interactively, don't do anything
 case $- in
@@ -134,6 +134,5 @@ bind '"\e[6~": menu-complete'
 bind '"\e[5~": menu-complete-backward'
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-[ -f /usr/share/doc/fzf/examples/key-bindings.bash ] && source /usr/share/doc/fzf/examples/key-bindings.bash
 
 source ~/.common.bash
