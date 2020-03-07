@@ -2,6 +2,7 @@
 
 [ -f /home/linuxbrew/.linuxbrew/bin/brew ] && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
+export PYTHON_CONFIGURE_OPTS="--enable-shared"
 if [ -d ~/.pyenv ]; then
 	export PYENV_ROOT="$HOME/.pyenv"
 	export PATH="$PYENV_ROOT/bin:$PATH"
