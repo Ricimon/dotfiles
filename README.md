@@ -17,7 +17,7 @@
 - zsh
 	- `sudo apt-get install zsh`
 	- `chsh -s $(which zsh)` (optional, sets default shell to zsh)
-- [zgen](https://github.com/tarjoilija/zgen) (required for zsh)
+- [zgen](https://github.com/tarjoilija/zgen) *(required for zsh)*
 	- `git clone https://github.com/tarjoilija/zgen.git ~/.zgen`
 	- plugins:
 		- oh-my-zsh
