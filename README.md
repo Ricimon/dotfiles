@@ -21,16 +21,18 @@
 	- plugins:
 		- oh-my-zsh
 		- tmux
-		- zsh-syntax-highlighting
+		- [fasd](https://github.com/clvv/fasd)
+		- [fzf-z](https://github.com/andrewferrier/fzf-z)
+		- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
 - [pyenv](https://github.com/pyenv/pyenv)
 	- (macOS) `brew install pyenv`
 	- (linux) `git clone https://github.com/pyenv/pyenv.git ~/.pyenv`
 - [dircolors-solarized](https://github.com/seebi/dircolors-solarized)
 	- `git clone https://github.com/seebi/dircolors-solarized.git ~/.dircolors/dircolors-solarized`
-- linuxbrew (linux)
+- [linuxbrew](https://linuxbrew.sh) (linux)
 	- `sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"`
 	- `eval $(~/.linuxbrew/bin/brew shellenv)`
-- homebrew (macOS)
+- [homebrew](https://brew.sh) (macOS)
 	- `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
 - [fzf](https://github.com/junegunn/fzf)
 	- `brew install fzf`
