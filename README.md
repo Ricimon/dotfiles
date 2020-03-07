@@ -3,14 +3,13 @@
 ## Dependencies
 - vim
 	- use `vim-gtk` for Windows copy-paste support on WSL
-- Vundle
+- [Vundle](https://github.com/VundleVim/Vundle.vim)
 	- auto-installed in `.vimrc`
 	- manual install/update: `vim +PluginInstall +qall`
-- vim-plug
+- [vim-plug](https://github.com/junegunn/vim-plug)
 	- auto-installed in `.vimrc`
 	- manual install/update: `vim +PlugInstall +qall`
-- powerline-fonts
-	- https://github.com/powerline/fonts
+- [powerline-fonts](https://github.com/powerline/fonts)
 	- Requires custom installation in iTerm2 (macOS) and all Windows terminals
 
 ## Supported packages
@@ -23,17 +22,17 @@
 		- oh-my-zsh
 		- tmux
 		- zsh-syntax-highlighting
-- pyenv
+- [pyenv](https://github.com/pyenv/pyenv)
 	- (macOS) `brew install pyenv`
 	- (linux) `git clone https://github.com/pyenv/pyenv.git ~/.pyenv`
-- dircolors-solarized
+- [dircolors-solarized](https://github.com/seebi/dircolors-solarized)
 	- `git clone https://github.com/seebi/dircolors-solarized.git ~/.dircolors/dircolors-solarized`
 - linuxbrew (linux)
 	- `sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"`
 	- `eval $(~/.linuxbrew/bin/brew shellenv)`
 - homebrew (macOS)
 	- `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
-- fzf
+- [fzf](https://github.com/junegunn/fzf)
 	- `brew install fzf`
 	- `$(brew --prefix)/opt/fzf/install`
 
