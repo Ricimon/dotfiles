@@ -37,10 +37,13 @@
 	- `brew install fzf`
 	- `$(brew --prefix)/opt/fzf/install`
 
-### These dotfiles are installed using [Dotbot](https://github.com/anishathalye/dotbot)
-- `git clone https://github.com/Ricimon/dotfiles.git`
-- `cd dotfiles`
-- `./install`
+## Installation
+These dotfiles are installed using [Dotbot](https://github.com/anishathalye/dotbot)
+```
+git clone https://github.com/Ricimon/dotfiles.git
+cd dotfiles
+./install
+```
 
-### Extra
+## Extra
 `zsh` is the shell of choice, but note that `zsh` does not source `~/.profile`, but instead sources `~/.zprofile`. A quick workaround is to run `ln -s ~/.profile ~/.zprofile` so long as `~/.profile` only defines environment variables
