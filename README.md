@@ -20,8 +20,10 @@
 	- `git clone https://github.com/tarjoilija/zgen.git ~/.zgen`
 	- plugins:
 		- oh-my-zsh
-		- tmux
+		- [tmux](https://github.com/tmux/tmux)
+			- `sudo apt-get install tmux`
 		- [fasd](https://github.com/clvv/fasd)
+			- `brew install fasd`
 		- [fzf-z](https://github.com/andrewferrier/fzf-z)
 		- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
 - [pyenv](https://github.com/pyenv/pyenv)
