@@ -39,7 +39,7 @@
 
 ## Installation
 These dotfiles are installed using [Dotbot](https://github.com/anishathalye/dotbot)
-```
+```bash
 git clone https://github.com/Ricimon/dotfiles.git
 cd dotfiles
 ./install
