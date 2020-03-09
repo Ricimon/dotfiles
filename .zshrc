@@ -106,6 +106,6 @@ fi
 # 10ms for key sequences
 KEYTIMEOUT=1
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 source ~/.common.bash
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

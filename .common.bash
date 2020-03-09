@@ -1,3 +1,5 @@
+set -o vi
+
 [ -f ~/.bash_aliases ] && source ~/.bash_aliases
 
 [ -f /home/linuxbrew/.linuxbrew/bin/brew ] && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
