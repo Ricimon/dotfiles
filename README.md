@@ -5,7 +5,7 @@
 	- use `vim-gtk` for Windows copy-paste support on WSL
 - [vim-plug](https://github.com/junegunn/vim-plug)
 	- auto-installed in `.vimrc`
-	- manual install/update: `:PlugInstall` `PlugUpdate`
+	- manual install/update: `:PlugInstall`/`:PlugUpdate`
 - [powerline-fonts](https://github.com/powerline/fonts)
 	- Requires custom installation in iTerm2 (macOS) and all Windows terminals
 
@@ -19,6 +19,9 @@
 		- oh-my-zsh
 		- [tmux](https://github.com/tmux/tmux)
 			- `sudo apt-get install tmux`
+		- [tmuxinator](https://github.com/tmuxinator/tmuxinator)
+			- requires ruby >= 2.4.0, use `rvm` to install if needed
+			- `gem install tmuxinator`
 		- [fasd](https://github.com/clvv/fasd)
 			- `brew install fasd`
 		- [fzf-z](https://github.com/andrewferrier/fzf-z)
@@ -26,6 +29,8 @@
 - [pyenv](https://github.com/pyenv/pyenv)
 	- (macOS) `brew install pyenv`
 	- (linux) `git clone https://github.com/pyenv/pyenv.git ~/.pyenv`
+- [rvm](https://github.com/rvm/rvm)
+	- `\curl -sSL https://get.rvm.io | bash -s stable`
 - [dircolors-solarized](https://github.com/seebi/dircolors-solarized)
 	- `git clone https://github.com/seebi/dircolors-solarized.git ~/.dircolors/dircolors-solarized`
 - [linuxbrew](https://linuxbrew.sh) (linux)
@@ -46,4 +51,4 @@ cd dotfiles
 ```
 
 ## Extra
-`zsh` is the shell of choice, but note that `zsh` does not source `~/.profile`, but instead sources `~/.zprofile`. A quick workaround is to run `ln -s ~/.profile ~/.zprofile` so long as `~/.profile` only defines environment variables
+`zsh` is the shell of choice, but note that `zsh` does not source `~/.profile`, but instead sources `~/.zprofile`. A quick workaround is to run `ln -s ~/.profile ~/.zprofile` (mileage may vary)

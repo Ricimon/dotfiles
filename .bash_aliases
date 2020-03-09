@@ -8,3 +8,4 @@ alias lS='ls -1FSsh'
 alias lart='ls -1Fcart'
 alias lrt='ls -1Fcrt'
 alias h=history
+alias mux="tmuxinator"
