@@ -75,6 +75,7 @@
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 export ZSH_TMUX_AUTOSTART=true
+export ZSH_TMUX_AUTOCONNECT=false
 
 # load zgen
 source "$HOME/.zgen/zgen.zsh"
