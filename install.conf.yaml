@@ -13,9 +13,7 @@
     ~/.zshrc: .zshrc
 
 - shell:
-    -
-        command: chsh -s $(which zsh)
-        stdin: true
-        stdout: true
-        stderr: true
-        description: Making zsh the default shell
+    - 
+      command: >-
+          echo 'To change zsh to the default shell: chsh -s $(which zsh)'
+      stdout: true
