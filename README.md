@@ -20,8 +20,7 @@
 		- [tmux](https://github.com/tmux/tmux)
 			- `sudo apt-get install tmux`
 		- [tmuxinator](https://github.com/tmuxinator/tmuxinator)
-			- requires ruby >= 2.4.0, use `rvm` to install if needed
-			- `gem install tmuxinator`
+			- `brew install tmuxinator`
 		- [fasd](https://github.com/clvv/fasd)
 			- `brew install fasd`
 		- [fzf-z](https://github.com/andrewferrier/fzf-z)
