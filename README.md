@@ -16,7 +16,7 @@
 - [zgen](https://github.com/tarjoilija/zgen) *(required for zsh)*
 	- `git clone https://github.com/tarjoilija/zgen.git ~/.zgen` (done by `install` script)
 	- plugins:
-		- oh-my-zsh
+		- [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)
 		- [tmux](https://github.com/tmux/tmux)
 			- `sudo apt-get install tmux`
 		- [tmuxinator](https://github.com/tmuxinator/tmuxinator)
