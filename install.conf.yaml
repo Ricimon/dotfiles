@@ -13,6 +13,12 @@
     ~/.zshrc: .zshrc
 
 - shell:
+    -
+      command: >-
+          if [ ! -d ~/.zgen ]; then git clone https://github.com/tarjoilija/zgen.git ~/.zgen; fi
+      description: Installing zgen if not installed...
+      stdout: true
+      stderr: true
     - 
       command: >-
           echo 'To change zsh to the default shell: chsh -s $(which zsh)'
