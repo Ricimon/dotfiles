@@ -15,8 +15,8 @@
 - shell:
     -
       command: >-
-          if [ ! -d ~/.zgen ]; then git clone https://github.com/tarjoilija/zgen.git ~/.zgen; fi
-      description: Installing zgen if not installed...
+          if command -v zsh >/dev/null 2>&1 && [ ! -d ~/.zgen ]; then git clone https://github.com/tarjoilija/zgen.git ~/.zgen; fi
+      description: "Installing zgen if zsh is present and zgen is not installed...\n"
       stdout: true
       stderr: true
     - 
