@@ -3,12 +3,9 @@
 ## Dependencies
 - vim
 	- use `vim-gtk` for Windows copy-paste support on WSL
-- [Vundle](https://github.com/VundleVim/Vundle.vim)
-	- auto-installed in `.vimrc`
-	- manual install/update: `vim +PluginInstall +qall`
 - [vim-plug](https://github.com/junegunn/vim-plug)
 	- auto-installed in `.vimrc`
-	- manual install/update: `vim +PlugInstall +qall`
+	- manual install/update: `:PlugInstall` `PlugUpdate`
 - [powerline-fonts](https://github.com/powerline/fonts)
 	- Requires custom installation in iTerm2 (macOS) and all Windows terminals
 
