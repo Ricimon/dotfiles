@@ -11,7 +11,7 @@ endif
 syntax on
 
 set clipboard=unnamed
-set number
+set number relativenumber
 set noeb vb t_vb=
 set formatoptions-=t
 set formatoptions-=cro
@@ -39,74 +39,56 @@ nnoremap <C-H> <C-W><C-H>
 " eliminate delay on esc
 set timeoutlen=1000 ttimeoutlen=0
 
-" auto-install Vundle
-let freshVundleInstall=0
-if empty(glob('~/.vim/bundle/Vundle.vim'))
-	silent !git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
-	let freshVundleInstall=1
-endif
-
-set nocompatible		" required
-filetype off			" required
-
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
-" add all your plugins here (note older versions of Vundle
-" used Bundle instead of Plugin)
-
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'tpope/vim-fugitive'
-Plugin 'preservim/nerdtree'
-Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plugin 'OmniSharp/omnisharp-vim'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'dense-analysis/ale'
-Plugin 'vim-syntastic/syntastic'
-Plugin 'vim-python/python-syntax'
-Plugin 'jmcantrell/vim-virtualenv'
-Plugin 'vim-scripts/indentpython.vim'
-Plugin 'tmhedberg/SimpylFold'
-Plugin 'nvie/vim-flake8'
-
-if freshVundleInstall == 1
-	:PluginInstall
-	echo "Go to https://github.com/ycm-core/YouCompleteMe#installation for instructions on finishing the YCM vim-plugin install"
-endif
-
-" All of your Plugins must be added before the following line
-call vundle#end()		" required
-filetype plugin indent on	" required
+filetype plugin indent on
 
 " auto-install vim-plug
-let freshVimPlugInstall=0
 if empty(glob('~/.vim/autoload/plug.vim'))
 	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
 		\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-	let freshVimPlugInstall=1
+	autocmd VimEnter *
+		\  PlugInstall --sync | source $MYVIMRC
+		\| echo "Go to https://github.com/ycm-core/YouCompleteMe#installation for instructions on finishing the YCM vim-plugin install"
 endif
 call plug#begin()
 
-" add all vim-plug plugins here
+"============= add all vim-plug plugins here ===============
+" fzf goodness
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+
+" theme
 Plug 'drewtempelmeyer/palenight.vim'
 
-if freshVimPlugInstall == 1
-	:PlugInstall --sync | source $MYVIMRC
-endif
+" powerline but better
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'tpope/vim-fugitive' " git integration
+
+" directory structure (ctrl+n to activate)
+Plug 'preservim/nerdtree'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+
+" autocomplete
+Plug 'OmniSharp/omnisharp-vim'
+Plug 'Valloric/YouCompleteMe'
+
+" linting
+Plug 'dense-analysis/ale'
+Plug 'vim-syntastic/syntastic'
+Plug 'vim-python/python-syntax'
+Plug 'nvie/vim-flake8' " syntax+style checker for python
+Plug 'vim-scripts/indentpython.vim' " indentation for python
+Plug 'tmhedberg/SimpylFold' " python code folding
+
+" python (non-linting)
+Plug 'jmcantrell/vim-virtualenv' " venv support for python
+
+" auto toggle between hybrid and absolute line numbers
+Plug 'jeffkreeftmeijer/vim-numbertoggle'
 
 call plug#end()
 
-colorscheme palenight
+:silent! colorscheme palenight
 let g:palenight_terminal_italics=1
 let g:airline_theme='bubblegum'
 
