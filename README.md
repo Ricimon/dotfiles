@@ -51,4 +51,4 @@ cd dotfiles
 ```
 
 ## Extra
-`zsh` is the shell of choice, but note that `zsh` does not source `~/.profile`, but instead sources `~/.zprofile`. A quick workaround is to run `ln -s ~/.profile ~/.zprofile` (mileage may vary)
+`zsh` is the shell of choice, however note that `zsh` does not source `~/.profile` but instead sources `~/.zprofile`. A quick workaround is to run `ln -s ~/.profile ~/.zprofile` (mileage may vary)
