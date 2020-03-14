@@ -1,7 +1,6 @@
 set t_Co=256
 set background=dark
 set t_ut=""
-set term=screen-256color
 if (has("termguicolors"))
 	let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 	let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -42,12 +41,11 @@ set timeoutlen=1000 ttimeoutlen=0
 filetype plugin indent on
 
 " auto-install vim-plug
-if empty(glob('~/.vim/autoload/plug.vim'))
-	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+	silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
 		\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	autocmd VimEnter *
 		\  PlugInstall --sync | source $MYVIMRC
-		\| echo "Go to https://github.com/ycm-core/YouCompleteMe#installation for instructions on finishing the YCM vim-plugin install"
 endif
 call plug#begin()
 
@@ -70,11 +68,16 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 " autocomplete
 Plug 'OmniSharp/omnisharp-vim'
-Plug 'Valloric/YouCompleteMe'
+if has('nvim')
+	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+	Plug 'Shougo/deoplete.nvim'
+	Plug 'roxma/nvim-yarp'
+	Plug 'roxma/vim-hug-neovim-rpc'
+endif
 
 " linting
-Plug 'dense-analysis/ale'
-Plug 'vim-syntastic/syntastic'
+Plug 'neomake/neomake'
 Plug 'vim-python/python-syntax'
 Plug 'nvie/vim-flake8' " syntax+style checker for python
 Plug 'vim-scripts/indentpython.vim' " indentation for python
@@ -93,13 +96,11 @@ call plug#end()
 let g:palenight_terminal_italics=1
 let g:airline_theme='bubblegum'
 
-" YCM
-let g:ycm_autoclose_preview_window_after_completion=1
-map <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 let python_highlight_all=1
-" Set autocomplete function to OmniSharp
-autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
-let g:ycm_auto_start_csharp_server = 0
+
+" deoplete
+let g:python3_host_prog = $HOME."/.pyenv/versions/py3nvim/bin/python"
+let g:deoplete#enable_at_startup = 1
 
 au BufNewFile,BufRead *.py
 	\  set tabstop=4

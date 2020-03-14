@@ -5,11 +5,15 @@
 - clean: ~/
 
 - link:
+    ~/.config/nvim/init.vim:
+        create: true
+        path: .config/nvim/init.vim
     ~/.bash_aliases: .bash_aliases
     ~/.bashrc: .bashrc
     ~/.common.bash: .common.bash
     ~/.tmux.conf: .tmux.conf
     ~/.vimrc: .vimrc
+    ~/.nvimrc: .nvimrc
     ~/.zshrc: .zshrc
 
 - shell:

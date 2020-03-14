@@ -21,7 +21,10 @@ export PATH="$PATH:$HOME/.rvm/bin"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" 
 
 # end-of-shell-initialization commands
-# enable pyenv shims and autocompletion
-command -v pyenv 1>/dev/null 2>&1 && eval "$(pyenv init -)"
+# enable pyenv shims, autocompletion, and virtualenv
+if [ command -v pyenv 1>/dev/null 2>&1 ]; then
+	eval "$(pyenv init -)"
+	eval "$(pyenv virtualenv-init -)"
+fi
 
 true # exit with success, as not having the last initialization package will exit with an error code

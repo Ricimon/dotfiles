@@ -25,18 +25,25 @@
 			- `brew install fasd`
 		- [fzf-z](https://github.com/andrewferrier/fzf-z)
 		- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
-- [pyenv](https://github.com/pyenv/pyenv)
-	- (macOS) `brew install pyenv`
-	- (linux) `git clone https://github.com/pyenv/pyenv.git ~/.pyenv`
-- [rvm](https://github.com/rvm/rvm)
-	- `\curl -sSL https://get.rvm.io | bash -s stable`
-- [dircolors-solarized](https://github.com/seebi/dircolors-solarized)
-	- `git clone https://github.com/seebi/dircolors-solarized.git ~/.dircolors/dircolors-solarized`
 - [linuxbrew](https://linuxbrew.sh) (linux)
 	- `sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"`
 	- `eval $(~/.linuxbrew/bin/brew shellenv)`
 - [homebrew](https://brew.sh) (macOS)
 	- `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
+- [pyenv](https://github.com/pyenv/pyenv) + [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv)
+	- `brew install pyenv`
+	- `brew install pyenv-virtualenv`
+- [rvm](https://github.com/rvm/rvm)
+	- `\curl -sSL https://get.rvm.io | bash -s stable`
+- [neovim](https://github.com/neovim/neovim)
+	- `brew install neovim`
+	- plugins with additional install steps:
+		- [deoplete](https://github.com/Shougo/deoplete.nvim)
+			- `pyenv virtualenv 3.x py3nvim` (replace x with desired python version, eg. `3.8.2`)
+			- `pyenv activate py3nvim`
+			- `pip install pynvim`
+- [dircolors-solarized](https://github.com/seebi/dircolors-solarized)
+	- `git clone https://github.com/seebi/dircolors-solarized.git ~/.dircolors/dircolors-solarized`
 - [fzf](https://github.com/junegunn/fzf)
 	- `brew install fzf`
 	- `$(brew --prefix)/opt/fzf/install`
