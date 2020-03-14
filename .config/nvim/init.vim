@@ -75,6 +75,7 @@ else
 	Plug 'roxma/nvim-yarp'
 	Plug 'roxma/vim-hug-neovim-rpc'
 endif
+Plug 'ervandew/supertab' " perform all vim insert mode completions with Tab
 
 " linting
 Plug 'neomake/neomake'
@@ -101,6 +102,9 @@ let python_highlight_all=1
 " deoplete
 let g:python3_host_prog = $HOME."/.pyenv/versions/py3nvim/bin/python"
 let g:deoplete#enable_at_startup = 1
+
+" supertab
+let g:SuperTabDefaultCompletionType = "<c-n>"
 
 au BufNewFile,BufRead *.py
 	\  set tabstop=4

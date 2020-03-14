@@ -31,8 +31,7 @@
 - [homebrew](https://brew.sh) (macOS)
 	- `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
 - [pyenv](https://github.com/pyenv/pyenv) + [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv)
-	- `brew install pyenv`
-	- `brew install pyenv-virtualenv`
+	- `brew install pyenv pyenv-virtualenv`
 - [rvm](https://github.com/rvm/rvm)
 	- `\curl -sSL https://get.rvm.io | bash -s stable`
 - [neovim](https://github.com/neovim/neovim)
