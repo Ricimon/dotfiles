@@ -112,3 +112,5 @@ source ~/.common.bash
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
+
+true # exit with success, as not having the last initialization package will exit with an error code

@@ -138,3 +138,5 @@ set -o vi
 source ~/.common.bash
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+true # exit with success, as not having the last initialization package will exit with an error code
