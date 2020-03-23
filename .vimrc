@@ -15,6 +15,7 @@ set number relativenumber
 set noeb vb t_vb=
 set formatoptions-=t
 set formatoptions-=cro
+set fileformats=unix
 
 set tabstop=4
 set softtabstop=0 noexpandtab
