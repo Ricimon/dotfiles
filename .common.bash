@@ -1,4 +1,4 @@
-export EDITOR='vim'
+export EDITOR='nvim'
 
 [ -f ~/.bash_aliases ] && source ~/.bash_aliases
 
