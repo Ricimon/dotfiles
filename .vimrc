@@ -18,7 +18,7 @@ set formatoptions-=cro
 set fileformats=unix
 
 set tabstop=4
-set softtabstop=0 noexpandtab
+set softtabstop=0 expandtab
 set shiftwidth=4
 set textwidth=0
 set wrap
