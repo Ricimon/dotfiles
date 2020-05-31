@@ -67,6 +67,7 @@ Plug 'tpope/vim-fugitive' " git integration
 
 " directory structure (ctrl+n to activate)
 Plug 'preservim/nerdtree'
+Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 " autocomplete
