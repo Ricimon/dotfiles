@@ -8,6 +8,7 @@
 	- manual install/update: `:PlugInstall`/`:PlugUpdate`
 - [powerline-fonts](https://github.com/powerline/fonts)
 	- Requires custom installation in iTerm2 (macOS) and all Windows terminals
+- [nerd fonts](https://www.nerdfonts.com/font-downloads) (linux)
 
 ## Supported packages
 - zsh
