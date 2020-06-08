@@ -23,6 +23,12 @@
       description: "Installing zgen if zsh is present and zgen is not installed...\n"
       stdout: true
       stderr: true
+    -
+      command: >-
+          if command -v tmux >/dev/null 2>$1 && [ ! -d ~/.tmux/plugins/tpm ]; then git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm; fi
+      description: "Installing tpm if tmux is present and tpm is not installed...\n"
+      stdout: true
+      stderr: true
     - 
       command: >-
           echo 'To change zsh to the default shell: chsh -s $(which zsh)'
