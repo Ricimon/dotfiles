@@ -44,6 +44,10 @@ set timeoutlen=1000 ttimeoutlen=0
 
 filetype plugin indent on
 
+" neovim python providers
+let g:python_host_prog = '$PYENV_ROOT/versions/py2nvim/bin/python'
+let g:python3_host_prog = '$PYENV_ROOT/versions/py3nvim/bin/python3'
+
 " auto-install vim-plug
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
 	silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
@@ -64,7 +68,10 @@ Plug 'drewtempelmeyer/palenight.vim'
 " powerline but better
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'tpope/vim-fugitive' " git integration
+
+" git
+Plug 'tpope/vim-fugitive' " airline git integration
+Plug 'airblade/vim-gitgutter' " displays git changes in file
 
 " directory structure (ctrl+n to activate)
 Plug 'preservim/nerdtree'
@@ -73,14 +80,9 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 " autocomplete
 Plug 'OmniSharp/omnisharp-vim'
-if has('nvim')
-	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-	Plug 'Shougo/deoplete.nvim'
-	Plug 'roxma/nvim-yarp'
-	Plug 'roxma/vim-hug-neovim-rpc'
-endif
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ervandew/supertab' " perform all vim insert mode completions with Tab
+Plug 'jiangmiao/auto-pairs' " auto-insert close brackets, braces, etc.
 
 " linting
 Plug 'neomake/neomake'
@@ -89,11 +91,15 @@ Plug 'nvie/vim-flake8' " syntax+style checker for python
 Plug 'vim-scripts/indentpython.vim' " indentation for python
 Plug 'tmhedberg/SimpylFold' " python code folding
 
+" syntax highlighting
+Plug 'sheerun/vim-polyglot'
+
 " python (non-linting)
 Plug 'jmcantrell/vim-virtualenv' " venv support for python
 
-" auto toggle between hybrid and absolute line numbers
-Plug 'jeffkreeftmeijer/vim-numbertoggle'
+" misc
+Plug 'jeffkreeftmeijer/vim-numbertoggle' " auto toggle between hybrid and absolute line numbers
+Plug 'psliwka/vim-smoothie' " smooth scrolling
 
 call plug#end()
 
@@ -104,9 +110,8 @@ let g:airline_theme='bubblegum'
 
 let python_highlight_all=1
 
-" deoplete
-let g:python3_host_prog = $HOME."/.pyenv/versions/py3nvim/bin/python"
-let g:deoplete#enable_at_startup = 1
+" coc
+let g:coc_global_extensions=[ 'coc-omnisharp' ]
 
 " supertab
 let g:SuperTabDefaultCompletionType = "<c-n>"
@@ -128,9 +133,6 @@ au BufNewFile,BufRead *.js, *.html, *.css
 	\  set tabstop=2
 	\| set softtabstop=2
 	\| set shiftwidth=2
-
-" limit ALE to only use OmniSharp
-let g:ale_linters = { 'cs': ['OmniSharp'] }
 
 " NERDTree bindings and settings
 map <C-n> :NERDTreeToggle<CR>
