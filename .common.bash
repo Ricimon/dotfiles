@@ -1,9 +1,9 @@
 # https://stackoverflow.com/a/26759734
-if [ -x "$(command -v nvim)" ]
+if [ -x "$(command -v nvim)" ]; then
     export EDITOR='nvim'
-elif [ -x "$(command -v vim)" ]
+elif [ -x "$(command -v vim)" ]; then
     export EDITOR='vim'
-elif [ -x "$(command -v vi)" ]
+elif [ -x "$(command -v vi)" ]; then
     export EDITOR='vi'
 fi
 
