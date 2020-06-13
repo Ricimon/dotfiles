@@ -71,7 +71,7 @@ endif
 syntax on
 filetype plugin indent on
 
-set clipboard=unnamed
+set clipboard=unnamed,unnamedplus
 set number relativenumber
 set noeb vb t_vb=
 set formatoptions-=t
@@ -156,19 +156,19 @@ augroup omnisharp_commands
     "autocmd BufWritePost *.cs call OmniSharp#AddToProject()
 
     " show type information automatically when the cursor stops moving
-    autocmd CursorHold *.cs call OmniSharp#actions#documentation#TypeLookup()
+    "autocmd CursorHold *.cs call OmniSharp#actions#documentation#TypeLookup()
 
     " The following commands are contextual, based on the current cursor position.
 
     autocmd FileType cs nnoremap gd :OmniSharpGotoDefinition<cr>
     autocmd FileType cs nnoremap <leader>fi :OmniSharpFindImplementations<cr>
-    autocmd FileType cs nnoremap <leader>ft :OmniSharpFindType<cr>
+    "autocmd FileType cs nnoremap <leader>ft :OmniSharpFindType<cr>
     autocmd FileType cs nnoremap <leader>fs :OmniSharpFindSymbol<cr>
     autocmd FileType cs nnoremap <leader>fu :OmniSharpFindUsages<cr>
     " finds members in the current buffer
     autocmd FileType cs nnoremap <leader>fm :OmniSharpFindMembers<cr>
     " cursor can be anywhere on the line containing an issue
-    autocmd FileType cs nnoremap <leader>x :OmniSharpFixIssue<cr>
+    "autocmd FileType cs nnoremap <leader>x :OmniSharpFixIssue<cr>
     autocmd FileType cs nnoremap <leader>fx :OmniSharpFixUsings<cr>
     autocmd FileType cs nnoremap <leader>tt :OmniSharpTypeLookup<cr>
     autocmd FileType cs nnoremap <leader>dc :OmniSharpDocumentation<cr>

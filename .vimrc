@@ -11,7 +11,7 @@ endif
 syntax on
 filetype plugin indent on
 
-set clipboard=unnamed
+set clipboard=unnamed,unnamedplus
 set number relativenumber
 set noeb vb t_vb=
 set formatoptions-=t
