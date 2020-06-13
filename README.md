@@ -11,7 +11,7 @@
 		- [tmux](https://github.com/tmux/tmux)
 			- `sudo apt-get install tmux`
         - [tpm](https://github.com/tmux-plugins/tpm)
-            - `git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm` (done by `install` script if `tmux` is installed)
+            - `git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm` (auto-installed on tmux start)
 		- [tmuxinator](https://github.com/tmuxinator/tmuxinator)
 			- `brew install tmuxinator`
 		- [fasd](https://github.com/clvv/fasd)
