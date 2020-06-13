@@ -1,4 +1,11 @@
-export EDITOR='nvim'
+# https://stackoverflow.com/a/26759734
+if [ -x "$(command -v nvim)" ]
+    export EDITOR='nvim'
+elif [ -x "$(command -v vim)" ]
+    export EDITOR='vim'
+elif [ -x "$(command -v vi)" ]
+    export EDITOR='vi'
+fi
 
 [ -f ~/.bash_aliases ] && source ~/.bash_aliases
 

@@ -1,15 +1,5 @@
 **Place computer-specific shell initialization logic in `~/.config.bash`**
 
-## Dependencies
-- vim
-	- use `vim-gtk` for Windows copy-paste support on WSL
-- [vim-plug](https://github.com/junegunn/vim-plug)
-	- auto-installed in `.vimrc`
-	- manual install/update: `:PlugInstall`/`:PlugUpdate`
-- [powerline-fonts](https://github.com/powerline/fonts)
-	- Requires custom installation in iTerm2 (macOS) and all Windows terminals
-- [nerd fonts](https://www.nerdfonts.com/font-downloads) (linux)
-
 ## Supported packages
 - zsh
 	- `sudo apt-get install zsh`
@@ -20,28 +10,32 @@
 		- [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)
 		- [tmux](https://github.com/tmux/tmux)
 			- `sudo apt-get install tmux`
+        - [tpm](https://github.com/tmux-plugins/tpm)
+            - `git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm` (done by `install` script if `tmux` is installed)
 		- [tmuxinator](https://github.com/tmuxinator/tmuxinator)
 			- `brew install tmuxinator`
 		- [fasd](https://github.com/clvv/fasd)
 			- `brew install fasd`
 		- [fzf-z](https://github.com/andrewferrier/fzf-z)
 		- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
+    - [nerd fonts](https://www.nerdfonts.com/font-downloads)
 - [linuxbrew](https://linuxbrew.sh) (linux)
 	- `sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"`
 	- `eval $(~/.linuxbrew/bin/brew shellenv)`
 - [homebrew](https://brew.sh) (macOS)
 	- `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
+- vim
+	- use `vim-gtk` for Windows copy-paste support on WSL
+- [neovim](https://github.com/neovim/neovim)
+	- `brew install neovim` ([macOS](https://github.com/neovim/neovim/wiki/Installing-Neovim#macos--os-x))
+    - `sudo apt install neovim` ([Debian](https://github.com/neovim/neovim/wiki/Installing-Neovim#debian))
+    - [vim-plug](https://github.com/junegunn/vim-plug)
+        - auto-installed in `.nvimrc`, manal install/update: `:PlugInstall`/`:PlugUpdate`
+    - [coc.nvim](https://github.com/neoclide/coc.nvim) requires [node.js](https://nodejs.org/en/download/package-manager/)
 - [pyenv](https://github.com/pyenv/pyenv) + [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv)
 	- `brew install pyenv pyenv-virtualenv`
 - [rvm](https://github.com/rvm/rvm)
 	- `\curl -sSL https://get.rvm.io | bash -s stable`
-- [neovim](https://github.com/neovim/neovim)
-	- `brew install neovim`
-	- plugins with additional install steps:
-		- [deoplete](https://github.com/Shougo/deoplete.nvim)
-			- `pyenv virtualenv 3.x py3nvim` (replace x with desired python version, eg. `3.8.2`)
-			- `pyenv activate py3nvim`
-			- `pip install pynvim`
 - [dircolors-solarized](https://github.com/seebi/dircolors-solarized)
 	- `git clone https://github.com/seebi/dircolors-solarized.git ~/.dircolors/dircolors-solarized`
 - [fzf](https://github.com/junegunn/fzf)

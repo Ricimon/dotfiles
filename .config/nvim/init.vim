@@ -105,8 +105,12 @@ nnoremap <silent> <C-l> :nohl<CR><C-l>
 set timeoutlen=1000 ttimeoutlen=0
 
 " neovim python providers
-let g:python_host_prog = '$PYENV_ROOT/versions/py2nvim/bin/python'
-let g:python3_host_prog = '$PYENV_ROOT/versions/py3nvim/bin/python3'
+if !empty(glob("$PYENV_ROOT/versions/py2nvim/bin/python"))
+    let g:python_host_prog = '$PYENV_ROOT/versions/py2nvim/bin/python'
+endif
+if !empty(glob("$PYENV_ROOT/versions/py3nvim/bin/python3"))
+    let g:python3_host_prog = '$PYENV_ROOT/versions/py3nvim/bin/python3'
+endif
 
 au BufNewFile,BufRead *.py
 	\  set tabstop=4
