@@ -127,7 +127,7 @@ export LS_COLORS
 
 export DISPLAY=localhost:0.0
 
-export PS1='\e[37;1m\u@\h \[\e[32m\]\w\[\e[33m\]$(parse_git_branch)\[\e[00m\] \$ ' # this will change your prompt format
+export PS1='\[\e[37;1m\]\u@\h \[\e[32m\]\w\[\e[33m\]$(parse_git_branch)\[\e[00m\] \$ ' # this will change your prompt format
 
 # pgup and pgdn to select completion options on tab
 bind '"\e[6~": menu-complete'
