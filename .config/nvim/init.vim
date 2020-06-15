@@ -125,7 +125,7 @@ au BufNewFile,BufRead *.py
 highlight BadWhitespace ctermbg=red guibg=darkred
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
-au BufNewFile,BufRead *.js, *.html, *.css
+au BufNewFile,BufRead *.html,*.css
 	\  set tabstop=2
 	\| set softtabstop=2
 	\| set shiftwidth=2
