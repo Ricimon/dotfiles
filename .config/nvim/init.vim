@@ -1,12 +1,13 @@
 " ===== PLUGINS =====
 
 " auto-install vim-plug
-if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
-	silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
-		\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	autocmd VimEnter *
-		\  PlugInstall --sync | source $MYVIMRC
+let autoload_plug_path = stdpath('data') . '/site/autoload/plug.vim'
+if !filereadable(autoload_plug_path)
+	silent execute '!curl -fLo ' . autoload_plug_path . ' --create-dirs
+		\ "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"'
+	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
+unlet autoload_plug_path
 call plug#begin()
 
 "============= add all vim-plug plugins here ===============

@@ -20,7 +20,7 @@
 		- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
     - [nerd fonts](https://www.nerdfonts.com/font-downloads)
 - [linuxbrew](https://linuxbrew.sh) (linux)
-	- `sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"`
+	- `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"`
 	- `eval $(~/.linuxbrew/bin/brew shellenv)`
 - [homebrew](https://brew.sh) (macOS)
 	- `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
@@ -37,7 +37,7 @@
 - [rvm](https://github.com/rvm/rvm)
 	- `\curl -sSL https://get.rvm.io | bash -s stable`
 - [dircolors-solarized](https://github.com/seebi/dircolors-solarized)
-	- `git clone https://github.com/seebi/dircolors-solarized.git ~/.dircolors/dircolors-solarized`
+	- `git clone https://github.com/seebi/dircolors-solarized.git ~/.dircolors/dircolors-solarized` (done by `install` script)
 - [fzf](https://github.com/junegunn/fzf)
 	- `brew install fzf`
 	- `$(brew --prefix)/opt/fzf/install`
