@@ -1,5 +1,6 @@
 alias l='ls -lFh'
-alias la='ls -lAFh'
+alias la='ls -laFh'
+alias lA='ls -lAFh'
 alias lr='ls -tRFh'
 alias lt='ls -ltFh'
 alias ll='ls -l'
