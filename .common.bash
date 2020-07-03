@@ -13,8 +13,8 @@ fi
 
 export PYTHON_CONFIGURE_OPTS="--enable-shared"
 if [ -d ~/.pyenv ]; then
-	export PYENV_ROOT="$HOME/.pyenv"
-	export PATH="$PYENV_ROOT/bin:$PATH"
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
 fi
 
 # computer-specific bash configs
@@ -30,8 +30,8 @@ export PATH="$PATH:$HOME/.rvm/bin"
 # end-of-shell-initialization commands
 # enable pyenv shims, autocompletion, and virtualenv
 if command -v pyenv 1>/dev/null 2>&1; then
-	eval "$(pyenv init -)"
-	eval "$(pyenv virtualenv-init -)"
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
 fi
 
 true # exit with success, as not having the last initialization package will exit with an error code

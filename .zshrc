@@ -82,28 +82,33 @@ source "$HOME/.zgen/zgen.zsh"
 
 # if the init script doesn't exist
 if ! zgen saved; then
-	echo "Creating a zgen save"
+    echo "Creating a zgen save"
 
-	zgen oh-my-zsh
+    zgen oh-my-zsh
 
-	# plugins
-	zgen oh-my-zsh plugins/git
-	zgen oh-my-zsh plugins/sudo
-	zgen oh-my-zsh plugins/tmux
-	zgen oh-my-zsh plugins/command-not-found
-	zgen oh-my-zsh plugins/fasd
-	zgen oh-my-zsh plugins/vi-mode
-	zgen load andrewferrier/fzf-z
-	zgen load zsh-users/zsh-syntax-highlighting
+    # plugins
+    zgen oh-my-zsh plugins/git
+    zgen oh-my-zsh plugins/sudo
+    zgen oh-my-zsh plugins/tmux
+    zgen oh-my-zsh plugins/command-not-found
+    zgen oh-my-zsh plugins/fasd
+    zgen oh-my-zsh plugins/vi-mode
+    zgen oh-my-zsh plugins/docker
+    zgen load andrewferrier/fzf-z
+    zgen load zsh-users/zsh-syntax-highlighting
 
-	# theme
-	zgen oh-my-zsh themes/agnoster
+    # theme
+    zgen oh-my-zsh themes/agnoster
 
-	# save all to init script
-	zgen save
+    # save all to init script
+    zgen save
 fi
 
 [ -d ~/.dircolors ] && eval `dircolors ~/.dircolors/dircolors-solarized/dircolors.ansi-dark`
+
+# https://github.com/ohmyzsh/ohmyzsh/issues/1563
+zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
+autoload -Uz compinit && compinit 1>/dev/null 2>&1
 
 # 10ms for key sequences
 KEYTIMEOUT=1

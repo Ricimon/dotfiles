@@ -3,9 +3,9 @@
 " auto-install vim-plug
 let autoload_plug_path = stdpath('data') . '/site/autoload/plug.vim'
 if !filereadable(autoload_plug_path)
-	silent execute '!curl -fLo ' . autoload_plug_path . ' --create-dirs
-		\ "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"'
-	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    silent execute '!curl -fLo ' . autoload_plug_path . ' --create-dirs
+        \ "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"'
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 unlet autoload_plug_path
 call plug#begin()
@@ -64,9 +64,9 @@ set t_Co=256
 set background=dark
 set t_ut=""
 if (has("termguicolors"))
-	let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-	let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-	set termguicolors
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
 endif
 
 syntax on
@@ -114,22 +114,22 @@ if !empty(glob("$PYENV_ROOT/versions/py3nvim/bin/python3"))
 endif
 
 au BufNewFile,BufRead *.py
-	\  set tabstop=4
-	\| set softtabstop=4
-	\| set shiftwidth=4
-	\| set textwidth=79
-	\| set expandtab
-	\| set autoindent
-	\| set fileformat=unix
-	\| set encoding=utf-8
+    \  set tabstop=4
+    \| set softtabstop=4
+    \| set shiftwidth=4
+    \| set textwidth=79
+    \| set expandtab
+    \| set autoindent
+    \| set fileformat=unix
+    \| set encoding=utf-8
 
 highlight BadWhitespace ctermbg=red guibg=darkred
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
 au BufNewFile,BufRead *.html,*.css
-	\  set tabstop=2
-	\| set softtabstop=2
-	\| set shiftwidth=2
+    \  set tabstop=2
+    \| set softtabstop=2
+    \| set shiftwidth=2
 
 " ===== PLUGIN SETTINGS =====
 
