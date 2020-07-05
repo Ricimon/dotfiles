@@ -33,6 +33,10 @@ set foldlevel=99
 " Enable folding with the spacebar
 nnoremap <space> za
 
+" more natural split opening
+set splitbelow
+set splitright
+
 " split navigations
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
