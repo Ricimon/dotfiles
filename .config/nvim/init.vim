@@ -53,6 +53,7 @@ Plug 'OrangeT/vim-csharp'
 Plug 'jmcantrell/vim-virtualenv' " venv support for python
 
 " misc
+Plug 'tpope/vim-obsession' " save vim sessions
 Plug 'jeffkreeftmeijer/vim-numbertoggle' " auto toggle between hybrid and absolute line numbers
 Plug 'psliwka/vim-smoothie' " smooth scrolling
 
