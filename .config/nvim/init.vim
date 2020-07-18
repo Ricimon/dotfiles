@@ -104,8 +104,8 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-" <Ctrl-l> redraws the screen and removes and search highlighting
-nnoremap <silent> <C-l> :nohl<CR><C-l>
+" <esc><esc> redraws the screen and removes and search highlighting
+nnoremap <esc><esc> :noh<CR>
 
 " eliminate delay on esc
 set timeoutlen=1000 ttimeoutlen=0
