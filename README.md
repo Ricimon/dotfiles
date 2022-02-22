@@ -44,8 +44,9 @@
 - [dircolors-solarized](https://github.com/seebi/dircolors-solarized)
     - `git clone https://github.com/seebi/dircolors-solarized.git ~/.dircolors/dircolors-solarized` (done by `install` script)
 - [fzf](https://github.com/junegunn/fzf)
-    - `brew install fzf`
-    - `$(brew --prefix)/opt/fzf/install`
+    - `brew install fzf` ([macOS](https://github.com/junegunn/fzf#using-homebrew))
+        - `$(brew --prefix)/opt/fzf/install`
+    - `sudo apt install fzf` ([Debian](https://github.com/junegunn/fzf#using-linux-package-managers))
 
 ## Installation
 These dotfiles are installed using [Dotbot](https://github.com/anishathalye/dotbot)
