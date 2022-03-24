@@ -48,6 +48,12 @@ Plug 'tmhedberg/SimpylFold' " python code folding
 " syntax highlighting
 Plug 'sheerun/vim-polyglot'
 Plug 'OrangeT/vim-csharp'
+Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
+Plug 'MaxMEllon/vim-jsx-pretty'
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+Plug 'jparise/vim-graphql'
 
 " python (non-linting)
 Plug 'jmcantrell/vim-virtualenv' " venv support for python
@@ -91,12 +97,13 @@ set nolist  " list disables linebreak
 " Enable folding
 set foldmethod=indent
 set foldlevel=99
-" Enable folding with the spacebar
-nnoremap <space> za
 
 " more natural split opening
 set splitbelow
 set splitright
+
+" set leader
+let mapleader = ' '
 
 " split navigations
 nnoremap <C-J> <C-W><C-J>
@@ -109,6 +116,9 @@ nnoremap <esc><esc> :noh<CR>
 
 " eliminate delay on esc
 set timeoutlen=1000 ttimeoutlen=0
+
+" reload vimrc
+nnoremap <leader>v :source $MYVIMRC<CR>
 
 " neovim python providers
 if !empty(glob("$PYENV_ROOT/versions/py2nvim/bin/python"))
@@ -136,6 +146,11 @@ au BufNewFile,BufRead *.html,*.css
     \| set softtabstop=2
     \| set shiftwidth=2
 
+" javascript/typescript settings
+" rescan entire buffer when highlighting to fix syntax highlighting desyncing
+autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
+autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
+
 " ===== PLUGIN SETTINGS =====
 
 " theme
@@ -144,6 +159,10 @@ let g:palenight_terminal_italics=1
 let g:airline_theme='bubblegum'
 
 let python_highlight_all=1
+
+" fzf
+nnoremap <silent> <Leader>h: :History:<CR>
+nnoremap <silent> <Leader>h/ :History/<CR>
 
 " OmniSharp
 let g:OmniSharp_server_stdio = 1
@@ -154,7 +173,7 @@ let g:OmniSharp_highlighting = 2
 set noshowmatch " showmatch significantly slows down omnicomplete when the first match contains parentheses
 " don't autoselect first item in omnicomplete, show if only one item (for preview)
 set completeopt=longest,menuone,preview
-set updatetime=1000 " this setting controls how long to wait (in ms) before fetching type/symbol information
+set updatetime=300 " this setting controls how long to wait (in ms) before fetching type/symbol information
 "set cmdheight=2 " Remove 'Press Enter to continue' message when type information is longer than one line
 augroup omnisharp_commands
     autocmd!
@@ -211,7 +230,112 @@ nnoremap <leader>th :OmniSharpHighlightTypes<cr>
 set hidden
 
 " coc
-let g:coc_global_extensions=[ 'coc-omnisharp' ]
+let g:coc_global_extensions = [
+  \ 'coc-omnisharp',
+  \ 'coc-tsserver'
+  \ ]
+if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
+    let g:coc_global_extensions += ['coc-prettier']
+endif
+
+if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
+    let g:coc_global_extensions += ['coc-eslint']
+endif
+
+" When hovering, show the diagnostic if it exists, otherwise the documentation
+function! ShowDocIfNoDiagnostic(timer_id)
+    if (coc#float#has_float() == 0 && CocHasProvider('hover') == 1)
+        silent call CocActionAsync('doHover')
+    endif
+endfunction
+
+function! s:show_hover_doc()
+    call timer_start(500, 'ShowDocIfNoDiagnostic')
+endfunction
+
+autocmd CursorHoldI * :call <SID>show_hover_doc()
+autocmd CursorHold * :call <SID>show_hover_doc()
+
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    elseif (coc#rpc#ready())
+        call CocActionAsync('doHover')
+    else
+        execute '!' . &keywordprg . " " . expand('<cword>')
+    endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+    autocmd!
+    " Setup formatexpr specified filetype(s).
+    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+    " Update signature help on jump placeholder.
+    autocmd User CocJumpPlaceholderA call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying codeAction to the current buffer
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Run the Code Lens action on the current line.
+nmap <leader>cl  <Plug>(coc-codelens-action)
+
+" Add (Neo)Vim's native statusline support.
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Mappings for CoCList
+" Show all diagnostics.
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" Show commands.
+nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document.
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent><nowait> <space>j  :<C-u>CocNext<cr>
+" Do default action for previous item.
+nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<cr>
+" Resume latest coc list.
+nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<cr>
 
 " supertab
 let g:SuperTabDefaultCompletionType = 'context'
