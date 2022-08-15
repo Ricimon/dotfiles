@@ -31,6 +31,9 @@ Plug 'preservim/nerdtree'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
+" tablin
+Plug 'nanozuki/tabby.nvim', {'branch': 'main'}
+
 " autocomplete
 Plug 'OmniSharp/omnisharp-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -93,6 +96,7 @@ set textwidth=0
 set wrap
 set linebreak
 set nolist  " list disables linebreak
+set guitablabel=%N/\ %t\ %M
 
 " Enable folding
 set foldmethod=indent
@@ -128,7 +132,7 @@ if !empty(glob("$PYENV_ROOT/versions/py3nvim/bin/python3"))
     let g:python3_host_prog = '$PYENV_ROOT/versions/py3nvim/bin/python3'
 endif
 
-au BufNewFile,BufRead *.py
+au BufNewFile,BufRead,BufEnter *.py
     \  set tabstop=4
     \| set softtabstop=4
     \| set shiftwidth=4
@@ -141,15 +145,15 @@ au BufNewFile,BufRead *.py
 highlight BadWhitespace ctermbg=red guibg=darkred
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
-au BufNewFile,BufRead *.html,*.css
-    \  set tabstop=2
-    \| set softtabstop=2
-    \| set shiftwidth=2
-
 " javascript/typescript settings
 " rescan entire buffer when highlighting to fix syntax highlighting desyncing
 autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
 autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
+
+au BufNewFile,BufRead,BufEnter *.html,*.css,*.js,*.jsx,*.ts,*.tsx
+    \  set tabstop=2
+    \| set softtabstop=2
+    \| set shiftwidth=2
 
 " ===== PLUGIN SETTINGS =====
 
