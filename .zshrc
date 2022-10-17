@@ -111,7 +111,7 @@ if ! zgen saved; then
     zgen save
 fi
 
-[ -d ~/.dircolors ] && eval `dircolors ~/.dircolors/dircolors-solarized/dircolors.ansi-dark`
+[ -d ~/.dircolors ] && [ -f dircolors ] && eval `dircolors ~/.dircolors/dircolors-solarized/dircolors.ansi-dark`
 
 # https://github.com/ohmyzsh/ohmyzsh/issues/1563
 zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
