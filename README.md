@@ -19,28 +19,24 @@
         - [tmuxinator](https://github.com/tmuxinator/tmuxinator)
             - `brew install tmuxinator`
         - [fasd](https://github.com/clvv/fasd)
-            - `brew install fasd`
+            - `brew install fasd` ([macOS](https://github.com/clvv/fasd/wiki/Installing-via-Package-Managers#mac-os-x))
+            - `sudo apt-get install fasd` ([Debian](https://github.com/clvv/fasd/wiki/Installing-via-Package-Managers#debian--ubuntu))
         - [fzf-z](https://github.com/andrewferrier/fzf-z)
         - [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
     - [nerd fonts](https://www.nerdfonts.com/font-downloads)
-- [linuxbrew](https://linuxbrew.sh) (linux)
-    - `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"`
-    - `eval $(~/.linuxbrew/bin/brew shellenv)`
 - [homebrew](https://brew.sh) (macOS)
     - `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
 - vim
     - use `vim-gtk` for Windows copy-paste support on WSL
 - [neovim](https://github.com/neovim/neovim)
     - `brew install neovim` ([macOS](https://github.com/neovim/neovim/wiki/Installing-Neovim#macos--os-x))
-    - `sudo apt install neovim` ([Debian](https://github.com/neovim/neovim/wiki/Installing-Neovim#debian))
+    - [AppImage (Linux)](https://github.com/neovim/neovim/wiki/Installing-Neovim#appimage-universal-linux-package)
     - [vim-plug](https://github.com/junegunn/vim-plug)
         - auto-installed in `.nvimrc`, manal install/update: `:PlugInstall`/`:PlugUpdate`
     - [coc.nvim](https://github.com/neoclide/coc.nvim) requires [node.js](https://nodejs.org/en/download/package-manager/)
     - `sudo apt install xclip` for Windows copy-paste support on WSL
 - [pyenv](https://github.com/pyenv/pyenv) + [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv)
     - `brew install pyenv pyenv-virtualenv`
-- [rvm](https://github.com/rvm/rvm)
-    - `\curl -sSL https://get.rvm.io | bash -s stable`
 - [dircolors-solarized](https://github.com/seebi/dircolors-solarized)
     - `git clone https://github.com/seebi/dircolors-solarized.git ~/.dircolors/dircolors-solarized` (done by `install` script)
 - [fzf](https://github.com/junegunn/fzf)
