@@ -5,6 +5,14 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
     source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# Uncomment to use the profiling module
+# zmodload zsh/zprof
+
+# Specifically for WSL, reset the PATH variable so that oh-my-zsh doesn't look in Windows paths for autocompletion
+if uname -r | grep -iqF 'Microsoft'; then
+    export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+fi
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -84,6 +92,9 @@ export LANG=en_US.UTF-8
 export ZSH_TMUX_AUTOSTART=true
 export ZSH_TMUX_AUTOCONNECT=false
 
+# Why this is before zgen: https://github.com/ohmyzsh/ohmyzsh/issues/1563
+[ -d ~/.dircolors ] && type dircolors &> /dev/null && eval `dircolors ~/.dircolors/dircolors-solarized/dircolors.ansi-dark`
+
 # load zgen
 source "$HOME/.zgen/zgen.zsh"
 
@@ -111,18 +122,11 @@ if ! zgen saved; then
     zgen save
 fi
 
-[ -d ~/.dircolors ] && [ -f dircolors ] && eval `dircolors ~/.dircolors/dircolors-solarized/dircolors.ansi-dark`
-
-# https://github.com/ohmyzsh/ohmyzsh/issues/1563
-zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
-autoload -Uz compinit && compinit 1>/dev/null 2>&1
-
 # 10ms for key sequences
 KEYTIMEOUT=1
 
 source ~/.common.bash
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.

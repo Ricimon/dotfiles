@@ -9,8 +9,6 @@ fi
 
 [ -f ~/.bash_aliases ] && source ~/.bash_aliases
 
-[ -f /home/linuxbrew/.linuxbrew/bin/brew ] && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-
 export PYTHON_CONFIGURE_OPTS="--enable-shared"
 if [ -d ~/.pyenv ]; then
     export PYENV_ROOT="$HOME/.pyenv"
@@ -19,13 +17,6 @@ fi
 
 # computer-specific bash configs
 [ -f ~/.config.bash ] && source ~/.config.bash
-
-# Don't let RVM set up shell to load RVM
-export rvm_ignore_dotfiles=yes
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-# Load RVM into a shell session *as a function*
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" 
 
 # end-of-shell-initialization commands
 # enable pyenv shims, autocompletion, and virtualenv
