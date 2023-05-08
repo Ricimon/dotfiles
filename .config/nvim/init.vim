@@ -11,9 +11,11 @@ unlet autoload_plug_path
 call plug#begin()
 
 "============= add all vim-plug plugins here ===============
-" fzf goodness
+" search
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'ctrlpvim/ctrlp.vim' " fuzzy search files
+Plug 'wsdjeg/FlyGrep.vim' " awesome grep on the fly
 
 " theme
 Plug 'drewtempelmeyer/palenight.vim'
@@ -22,30 +24,42 @@ Plug 'drewtempelmeyer/palenight.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
+" tagbar
+Plug 'preservim/tagbar' " shows tags in a bar (functions etc) for easy browsing
+
 " git
 Plug 'tpope/vim-fugitive' " airline git integration
 Plug 'airblade/vim-gitgutter' " displays git changes in file
 
 " directory structure (ctrl+n to activate)
 Plug 'preservim/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs'
 Plug 'ryanoasis/vim-devicons'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+"Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " does not work with Neovim 0.8
 
-" tablin
+" tabline
 Plug 'nanozuki/tabby.nvim', {'branch': 'main'}
 
 " autocomplete
-Plug 'OmniSharp/omnisharp-vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'tpope/vim-dispatch' " async build dispatcher, for omnisharp startup
-Plug 'ervandew/supertab' " perform all vim insert mode completions with Tab
+Plug 'ncm2/ncm2' " awesome autocomplete plugin
+Plug 'roxma/nvim-yarp' " dependency of ncm2
+Plug 'ncm2/ncm2-bufword' " buffer keyword completion
+Plug 'ncm2/ncm2-path' " filepath completion
+Plug 'ncm2/ncm2-jedi'
+Plug 'davidhalter/jedi-vim'
+"Plug 'OmniSharp/omnisharp-vim'
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'tpope/vim-dispatch' " async build dispatcher, for omnisharp startup
+"Plug 'ervandew/supertab' " perform all vim insert mode completions with Tab
 Plug 'jiangmiao/auto-pairs' " auto-insert close brackets, braces, etc.
+Plug 'tpope/vim-commentary' " comment-out by shortcut 'gc'
 
 " linting
 Plug 'dense-analysis/ale'
+Plug 'vim-syntastic/syntastic'
 Plug 'vim-python/python-syntax'
 Plug 'nvie/vim-flake8' " syntax+style checker for python
-Plug 'vim-scripts/indentpython.vim' " indentation for python
+Plug 'Vimjas/vim-python-pep8-indent' " indentation for python
 Plug 'tmhedberg/SimpylFold' " python code folding
 
 " syntax highlighting
@@ -60,6 +74,7 @@ Plug 'jparise/vim-graphql'
 
 " python (non-linting)
 Plug 'jmcantrell/vim-virtualenv' " venv support for python
+Plug 'tweekmonster/impsort.vim' " color and sort imports
 
 " misc
 Plug 'tpope/vim-obsession' " save vim sessions
@@ -82,32 +97,73 @@ endif
 syntax on
 filetype plugin indent on
 
-set clipboard+=unnamedplus
-set number relativenumber
+set number relativenumber " show line numbers
+set smartcase " better case-sensitivity when searching
+set wrapscan " begin search from top of file when nothing is found anymore
 set noeb vb t_vb=
 set formatoptions-=t
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 set fileformats=unix
+set encoding=utf-8
+set clipboard+=unnamedplus
+set viminfo='20,<1000" " allow copying of more than 50 lines to other applications
+set mouse=a " enable scrolling with mouse wheel
 
+set expandtab
 set tabstop=4
-set softtabstop=0 expandtab
 set shiftwidth=4
+set softtabstop=4
 set textwidth=0
 set wrap
 set linebreak
 set nolist  " list disables linebreak
 set guitablabel=%N/\ %t\ %M
+set fillchars+=vert:\  " remove chars from separators
+set breakindent " preserve horizontal whitespace when wrapping
+set showbreak=..
 
 " Enable folding
 set foldmethod=indent
 set foldlevel=99
 
+set scrolloff=3 " keep 3 lines between the cursor and the edge of the screen
+
+set hlsearch " highlight search and search while typing
+set incsearch
+set cpoptions+=x " stay at search item when <esc>
+
 " more natural split opening
 set splitbelow
 set splitright
 
+" suppress the annoying 'match x of y', 'The only match', and 'Pattern not found' messages
+set shortmess+=c
+
+set history=1000 " remember more commands and search history
+set undodir=~/.vim/undodir
+set undofile " save undos
+set undolevels=10000 " maximum number of changes that can be undone
+set undoreload=100000 " maximum number of lines to save for undo on a buffer reload
+
+set laststatus=2 " always show statusline
+
 " set leader
-let mapleader = ' '
+let mapleader = " " " Leader is the space key
+let g:mapleader = " "
+let maplocalleader = "`"
+let g:maplocalleader = "`"
+nnoremap <SPACE> <Nop>
+
+nmap <leader>w :w!<cr>
+nmap <leader>q :lcl<cr>:q<cr>
+nnoremap <leader>h :nohlsearch<Bar>:echo<CR>
+
+" toggle relative numbering
+nnoremap <F4> :set relativenumber!<CR>
+
+" switching between buffers
+nmap <F9> :bprev<CR>
+nmap <F10> :bnext<CR>
 
 " split windows
 map <C-i> <C-W>i
@@ -121,8 +177,50 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-" <esc><esc> redraws the screen and removes and search highlighting
-nnoremap <esc><esc> :noh<CR>
+" tabs
+nnoremap tn :tabnew<Space>
+nnoremap tk :tabnext<CR>
+nnoremap tj :tabprev<CR>
+nnoremap th :tabfirst<CR>
+nnoremap tl :tablast<CR>
+
+" map S to replace current word with pasteboard
+nnoremap S diw"0P
+nnoremap cc "_cc
+
+" mapping to make movements operate on 1 screen line in wrap mode
+function! ScreenMovement(movement)
+    if &wrap
+        return "g" . a:movement
+    else
+        return a:movement
+    endif
+endfunction
+
+onoremap <silent> <expr> j ScreenMovement("j")
+onoremap <silent> <expr> k ScreenMovement("k")
+onoremap <silent> <expr> 0 ScreenMovement("0")
+onoremap <silent> <expr> ^ ScreenMovement("^")
+onoremap <silent> <expr> $ ScreenMovement("$")
+nnoremap <silent> <expr> j ScreenMovement("j")
+nnoremap <silent> <expr> k ScreenMovement("k")
+nnoremap <silent> <expr> 0 ScreenMovement("0")
+nnoremap <silent> <expr> ^ ScreenMovement("^")
+nnoremap <silent> <expr> $ ScreenMovement("$")
+
+" Remove all trailing whitespace by pressing C-S
+nnoremap <C-S> :let _s@=/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
+
+" mapping Esc
+imap <F13> <Esc>
+cnoremap <Esc> <C-c>
+inoremap <c-c> <Esc>
+" disable terminal ctrl-z
+nnoremap <C-z> <Esc>
+
+" <Esc><Esc> redraws the screen and removes and search highlighting
+nnoremap <Esc><Esc> :noh<CR>
 
 " eliminate delay on esc
 set timeoutlen=1000 ttimeoutlen=0
@@ -130,6 +228,12 @@ set timeoutlen=1000 ttimeoutlen=0
 " reload vimrc
 nnoremap <leader>v :source $MYVIMRC<CR>
 
+" neovim options
+au BufEnter * if &buftype == 'terminal' | :startinsert | endif
+nnoremap <C-a> <Esc>
+nnoremap <C-x> <Esc>
+
+" python settings
 " neovim python providers
 if !empty(glob("$PYENV_ROOT/versions/py2nvim/bin/python"))
     let g:python_host_prog = '$PYENV_ROOT/versions/py2nvim/bin/python'
@@ -146,10 +250,50 @@ au BufNewFile,BufRead,BufEnter *.py
     \| set expandtab
     \| set autoindent
     \| set fileformat=unix
-    \| set encoding=utf-8
 
 highlight BadWhitespace ctermbg=red guibg=darkred
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+
+" easy breakpoint python
+au FileType python map <silent> <leader>b ofrom pudb import set_trace; set_trace()<Esc>
+au FileType python map <silent> <leader>B Ofrom pudb import set_trace; set_trace()<Esc>
+au FileType python map <silent> <leader>j ofrom pdb import set_trace; set_trace()<Esc>
+au FileType python map <silent> <leader>J Ofrom pdb import set_trace; set_trace()<Esc>
+
+" highlight python and self function
+autocmd BufEnter * syntax match Type /\v\.[a-zA-Z0-9_]+\ze(\[|\s|$|,|\]|\)|\.|:)/hs=s+1
+autocmd BufEnter * syntax match pythonFunction /\v[[:alnum:]_]+\ze(\s?\()/
+hi def link pythonFunction Function
+autocmd BufEnter * syn match Self "\(\W\|^\)\@<=self\(\.\)\@="
+highlight self ctermfg=239
+
+" move between defs python:
+" NOTE: this breaks shortcuts with []
+nnoremap [[ [m
+nnoremap ]] ]m
+
+nnoremap <silent><nowait> [ [[
+nnoremap <silent><nowait> ] ]]
+
+function! MakeBracketMaps()
+    nnoremap <silent><nowait><buffer> [ :<c-u>exe 'normal '.v:count.'[m'<cr>
+    nnoremap <silent><nowait><buffer> ] :<c-u>exe 'normal '.v:count.']m'<cr>
+endfunction
+
+augroup bracketmaps
+    autocmd!
+    autocmd FileType python call MakeBracketMaps()
+augroup END
+
+" python with virtualenv support
+py << EOF
+import os
+import sys
+if 'VIRTUAL_ENV' in os.environ:
+    project_base_dir = os.environ['VIRTUAL_ENV']
+    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+    execfile(activate_this, dict(__file__=activate_this))
+EOF
 
 " javascript/typescript settings
 " rescan entire buffer when highlighting to fix syntax highlighting desyncing
@@ -174,180 +318,64 @@ let python_highlight_all=1
 nnoremap <silent> <Leader>h: :History:<CR>
 nnoremap <silent> <Leader>h/ :History/<CR>
 
-" OmniSharp
-let g:OmniSharp_server_stdio = 1
-"let g:OmniSharp_server_type = 'roslyn'
-let g:OmniSharp_timeout = 1 " TImeout in seconds to wait for a response from the server
-let g:OmniSharp_server_use_mono = 1
-let g:OmniSharp_highlighting = 2
-set noshowmatch " showmatch significantly slows down omnicomplete when the first match contains parentheses
-" don't autoselect first item in omnicomplete, show if only one item (for preview)
-set completeopt=longest,menuone,preview
-set updatetime=300 " this setting controls how long to wait (in ms) before fetching type/symbol information
-"set cmdheight=2 " Remove 'Press Enter to continue' message when type information is longer than one line
-augroup omnisharp_commands
-    autocmd!
+" ctrl-p
+let g:ctrlp_custom_ignore = '\v\.(npy|jpg|pyc|so|dll)$'
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+let g:ctrlp_working_path_mode = 0 " disable working directory searching
 
-    " Set autocomplete function to OmniSharp (if not using YouCompleteMe completion plugin)
-    autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
+" FlyGrep settings
+nnoremap <leader>s :FlyGrep<cr>
 
-    " Automatically add new cs files to the nearest project on save
-    "autocmd BufWritePost *.cs call OmniSharp#AddToProject()
+" ncm2
+" enable ncm2 for all buffers
+autocmd BufEnter * call ncm2#enable_for_buffer()
+" :help Ncm2PopupOpen for more information
+set completeopt=noinsert,menuone,noselect
+" make it FAST
+let ncm2#popup_delay=5
+let ncm2#complete_length=[[1,1]]
+let g:ncm2#watcher = 'substrfuzzy'
+set pumheight=5
+" When the  <Enter> key is pressed whiel the popup menu is visible, it only
+" hides the menu. Use this mapping to close the menu and also start a new line.
+inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+" Use <TAB> to select the popup menu:
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" wrap existing omnifunc
+" Note that omnifunc does not run in the background and may probably block the
+" editor. If you don't want to be blocked by omnifunc too often, you could
+" add 180ms delay before the omni wrapper:
+"  'on_complete': ['ncm2#on_complete#delay', 180,
+"               \ 'ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
+au User Ncm2Plugin call ncm2#register_source({
+        \ 'name': 'css',
+        \ 'priority': 9,
+        \ 'subscope_enable': 1,
+        \ 'scope': ['css','scss'],
+        \ 'mark': 'css',
+        \ 'word_pattern': '[\w\-]+',
+        \ 'complete_pattern': ':\s*',
+        \ 'on_complete': ['ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
+        \ })
 
-    " show type information automatically when the cursor stops moving
-    "autocmd CursorHold *.cs call OmniSharp#actions#documentation#TypeLookup()
+" jedi
+let g:jedi#auto_initialization = 1
+let g:jedi#completions_enabled = 0
+let g:jedi#auto_vim_configuration = 0
+let g:jedi#smart_auto_mappings = 0
+let g:jedi#popup_on_dot = 0
+let g:jedi#completions_command = ""
+let g:jedi#show_call_signatures = "1"
+let g:jedi#show_call_signatures_delay = 0
+let g:jedi#use_tabs_not_buffers = 0
+let g:jedi#show_call_signatures_modes = 'i' " ni = also in normal mode
+let g:jedi#enable_speed_debugging = 0
 
-    " The following commands are contextual, based on the current cursor position.
-
-    autocmd FileType cs nnoremap gd :OmniSharpGotoDefinition<cr>
-    autocmd FileType cs nnoremap <leader>fi :OmniSharpFindImplementations<cr>
-    "autocmd FileType cs nnoremap <leader>ft :OmniSharpFindType<cr>
-    autocmd FileType cs nnoremap <leader>fs :OmniSharpFindSymbol<cr>
-    autocmd FileType cs nnoremap <leader>fu :OmniSharpFindUsages<cr>
-    " finds members in the current buffer
-    autocmd FileType cs nnoremap <leader>fm :OmniSharpFindMembers<cr>
-    " cursor can be anywhere on the line containing an issue
-    "autocmd FileType cs nnoremap <leader>x :OmniSharpFixIssue<cr>
-    autocmd FileType cs nnoremap <leader>fx :OmniSharpFixUsings<cr>
-    autocmd FileType cs nnoremap <leader>tt :OmniSharpTypeLookup<cr>
-    autocmd FileType cs nnoremap <leader>dc :OmniSharpDocumentation<cr>
-    " navigate up by method/property/field
-    autocmd FileType cs nnoremap <C-K> :OmniSharpNavigateUp<cr>
-    " navigate down by method/property/field
-    autocmd FileType cs nnoremap <C-J> :OmniSharpNavigateDown<cr>
-
-augroup END
-" Contextual code actions
-nnoremap <leader><space> :OmniSharpGetCodeActions<cr>
-" Run code actions with text selected in visual mode to extract method
-vnoremap <leader><space> :call OmniSharp#GetCodeActions('visual')<cr>
-" rename with dialog
-nnoremap <leader>nm :OmniSharpRename<cr>
-nnoremap <F2> :OmniSharpRename<cr>
-" rename without dialog - with cursor on the symbol to rename... ':Rename rename'
-command! -nargs=1 Rename :call OmniSharp#RenameTo("<args>")
-" Force OmniSharp to reload the solution. Useful when switching branches etc.
-nnoremap <leader>rl :OmniSharpReloadSolution<cr>
-nnoremap <leader>cf :OmniSharpCodeFormat<cr>
-" Load the current .cs file to the nearest project
-"nnoremap <leader>tp :OmniSharpAddToProject<cr>
-" (Experimental - uses vim-dispatch or vimproc plugin) - Start the omnisharp server for the current solution
-nnoremap <leader>ss :OmniSharpStartServer<cr>
-nnoremap <leader>sp :OmniSharpStopServer<cr>
-" Add syntax highlighting for types and interfaces
-nnoremap <leader>th :OmniSharpHighlightTypes<cr>
-" Don't ask to save when changing buffers (i.e. when jumping to a type definition)
-set hidden
-
-" coc
-let g:coc_global_extensions = [
-  \ 'coc-omnisharp',
-  \ 'coc-tsserver'
-  \ ]
-if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
-    let g:coc_global_extensions += ['coc-prettier']
-endif
-
-if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
-    let g:coc_global_extensions += ['coc-eslint']
-endif
-
-" When hovering, show the diagnostic if it exists, otherwise the documentation
-function! ShowDocIfNoDiagnostic(timer_id)
-    if (coc#float#has_float() == 0 && CocHasProvider('hover') == 1)
-        silent call CocActionAsync('doHover')
-    endif
-endfunction
-
-function! s:show_hover_doc()
-    call timer_start(500, 'ShowDocIfNoDiagnostic')
-endfunction
-
-autocmd CursorHoldI * :call <SID>show_hover_doc()
-autocmd CursorHold * :call <SID>show_hover_doc()
-
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" GoTo code navigation
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-" Open definition in a split window
-nmap <silent> gv :vsp<CR><Plug>(coc-definition)<C-W>L
-
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-        execute 'h '.expand('<cword>')
-    elseif (coc#rpc#ready())
-        call CocActionAsync('doHover')
-    else
-        execute '!' . &keywordprg . " " . expand('<cword>')
-    endif
-endfunction
-
-" Highlight the symbol and its references when holding the cursor
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
-
-" Formatting selected code.
-vmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
-augroup mygroup
-    autocmd!
-    " Setup formatexpr specified filetype(s).
-    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-    " Update signature help on jump placeholder.
-    autocmd User CocJumpPlaceholderA call CocActionAsync('showSignatureHelp')
-augroup end
-
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-vmap <leader>a  <Plug>(coc-codeaction-selected)<CR>
-nmap <leader>a  <Plug>(coc-codeaction-selected)<CR>
-
-" Remap keys for applying codeAction to the current buffer
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Run the Code Lens action on the current line.
-nmap <leader>cl  <Plug>(coc-codelens-action)
-
-" Add (Neo)Vim's native statusline support.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-" Mappings for CoCList
-" Show all diagnostics.
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
-" Show commands.
-nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols
-nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent><nowait> <space>j  :<C-u>CocNext<cr>
-" Do default action for previous item.
-nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<cr>
-" Resume latest coc list.
-nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<cr>
+" impsort
+hi pythonImportedObject ctermfg=127
+hi pythonImportedFuncDef ctermfg=127
+hi pythonImportedClassDef ctermfg=127
 
 " supertab
 let g:SuperTabDefaultCompletionType = 'context'
@@ -356,13 +384,38 @@ let g:SuperTabDefaultCompletionTypeDiscovery = ["&omnifunc:<c-x><c-o>","&complet
 let g:SuperTabClosePreviewOnPopupClose = 1
 
 " ALE
-let g:ale_linters = { 'cs': ['OmniSharp'] }
+let g:ale_list_window_size = 4
+let g:ale_sign_column_always = 0
+let g:ale_open_list = 1
+let g:ale_keep_list_window_open = '1'
+
+" Options are in .pylintrc!
+highlight VertSplit ctermbg=253
+
+let g:ale_sign_error = '!!'
+let g:ale_sign_warning = '•'
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_enter = '0'
+let g:ale_lint_on_save = '1'
+nmap <silent> <C-M> <Plug>(ale_previous_wrap)
+nmap <silent> <C-m> <Plug>(ale_next_wrap)
+
+" vimgutter
+let g:gitgutter_override_sign_column_highlight = 0
+let g:gitgutter_map_keys = 0
 
 " NERDTree bindings and settings
-map <C-n> :NERDTreeToggle %<CR>
+map <C-n> :NERDTreeToggle<CR>
 let NERDTreeShowHidden=1 " Show hidden files in NerdTree buffer.
 " open a NERDTree automatically when vim starts up if no files were specified
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 " close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" Hide .pyc files
+let NERDTreeIgnore=['\.pyc$', '\~$']
+" NERDTree tab synchronization is broken
+let g:nerdtree_tabs_synchronize_view = 0
+
+" tagbar
+map <C-t> :set nosplitright<CR>:TagbarToggle<CR>:set splitright<CR>

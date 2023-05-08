@@ -8,9 +8,9 @@ fi
 # Uncomment to use the profiling module
 # zmodload zsh/zprof
 
-# Specifically for WSL, reset the PATH variable so that oh-my-zsh doesn't look in Windows paths for autocompletion
+# Specifically for WSL, remove /mnt paths from the PATH variable so that oh-my-zsh doesn't look in Windows paths for autocompletion
 if uname -r | grep -iqF 'Microsoft'; then
-    export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+    export PATH=$(echo ${PATH} | awk -v RS=: -v ORS=: '/^\/mnt/ {next} {print}' | sed 's/:*$//')
 fi
 
 # If you come from bash you might have to change your $PATH.
