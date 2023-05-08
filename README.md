@@ -33,7 +33,6 @@
     - [AppImage (Linux)](https://github.com/neovim/neovim/wiki/Installing-Neovim#appimage-universal-linux-package)
     - [vim-plug](https://github.com/junegunn/vim-plug)
         - auto-installed in `.nvimrc`, manal install/update: `:PlugInstall`/`:PlugUpdate`
-    - [coc.nvim](https://github.com/neoclide/coc.nvim) requires [node.js](https://nodejs.org/en/download/package-manager/)
     - `sudo apt install xclip` for Windows copy-paste support on WSL
 - [pyenv](https://github.com/pyenv/pyenv) + [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv)
     - `brew install pyenv pyenv-virtualenv`
