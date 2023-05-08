@@ -35,7 +35,9 @@
         - auto-installed in `.nvimrc`, manal install/update: `:PlugInstall`/`:PlugUpdate`
     - `sudo apt install xclip` for Windows copy-paste support on WSL
 - [pyenv](https://github.com/pyenv/pyenv) + [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv)
-    - `brew install pyenv pyenv-virtualenv`
+    - `brew install pyenv pyenv-virtualenv` (macOS)
+    - `curl https://pyenv.run | bash` (Debian)
+    - `git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv` (Debian)
 - [dircolors-solarized](https://github.com/seebi/dircolors-solarized)
     - `git clone https://github.com/seebi/dircolors-solarized.git ~/.dircolors/dircolors-solarized` (done by `install` script)
 - [fzf](https://github.com/junegunn/fzf)

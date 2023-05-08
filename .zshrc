@@ -122,6 +122,11 @@ if ! zgen saved; then
     zgen save
 fi
 
+# oh-my-zsh plugins
+plugins=(
+    poetry
+)
+
 # 10ms for key sequences
 KEYTIMEOUT=1
 

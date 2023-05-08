@@ -27,4 +27,6 @@ if command -v pyenv 1>/dev/null 2>&1; then
     fi
 fi
 
+export PATH="$HOME/.local/bin:$PATH"
+
 true # exit with success, as not having the last initialization package will exit with an error code
