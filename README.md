@@ -13,9 +13,8 @@
         - [tpm](https://github.com/tmux-plugins/tpm)
             - `git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm` (auto-installed on tmux start)
             - plugins:
-                - [tmux-network-bandwidth](https://github.com/xamut/tmux-network-bandwith) (additional dependencies listed here)
+                - [tmux-power](https://github.com/wfxr/tmux-power)
                 - [tmux-resurrect](https://github.com/tmux-plugins/tmux-resurrect)
-                - [tmux-onedark-theme](https://github.com/odedlaz/tmux-onedark-theme)
         - [tmuxinator](https://github.com/tmuxinator/tmuxinator)
             - `brew install tmuxinator`
         - [fasd](https://github.com/clvv/fasd)
