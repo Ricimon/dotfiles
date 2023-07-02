@@ -56,7 +56,6 @@ Plug 'tpope/vim-commentary' " comment-out by shortcut 'gc'
 
 " linting
 Plug 'dense-analysis/ale'
-Plug 'vim-syntastic/syntastic'
 Plug 'vim-python/python-syntax'
 Plug 'nvie/vim-flake8' " syntax+style checker for python
 Plug 'Vimjas/vim-python-pep8-indent' " indentation for python
@@ -292,7 +291,9 @@ import sys
 if 'VIRTUAL_ENV' in os.environ:
     project_base_dir = os.environ['VIRTUAL_ENV']
     activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-    execfile(activate_this, dict(__file__=activate_this))
+    with open(activate_this) as f:
+        code = compile(f.read(), activate_this, 'exec')
+        exec(code, dict(__file__=activate_this))
 EOF
 
 " javascript/typescript settings
@@ -398,6 +399,7 @@ let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = '0'
 let g:ale_lint_on_insert_leave = 0
 let g:ale_lint_on_save = '1'
+let g:ale_fix_on_save = 1
 nmap <silent> <C-M> <Plug>(ale_previous_wrap)
 nmap <silent> <C-m> <Plug>(ale_next_wrap)
 
