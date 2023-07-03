@@ -408,17 +408,15 @@ let g:gitgutter_override_sign_column_highlight = 0
 let g:gitgutter_map_keys = 0
 
 " NERDTree bindings and settings
-map <C-n> :NERDTreeToggle<CR>
+map <C-n> <plug>NERDTreeTabsToggle<CR>
 let NERDTreeShowHidden=1 " Show hidden files in NerdTree buffer.
 " open a NERDTree automatically when vim starts up if no files were specified
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-" close vim if the only window left open is a NERDTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " Hide .pyc files
 let NERDTreeIgnore=['\.pyc$', '\~$']
-" NERDTree tab synchronization is broken
-let g:nerdtree_tabs_synchronize_view = 0
+let g:nerdtree_tabs_open_on_gui_startup = 2
+let g:nerdtree_tabs_open_on_console_startup = 2
 
 " tagbar
 map <C-t> :set nosplitright<CR>:TagbarToggle<CR>:set splitright<CR>
