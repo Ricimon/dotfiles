@@ -38,19 +38,11 @@ Plug 'ryanoasis/vim-devicons'
 "Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " does not work with Neovim 0.8
 
 " tabline
-Plug 'nanozuki/tabby.nvim', {'branch': 'main'}
+Plug 'nanozuki/tabby.nvim', { 'branch': 'main' }
 
 " autocomplete
-Plug 'ncm2/ncm2' " awesome autocomplete plugin
-Plug 'roxma/nvim-yarp' " dependency of ncm2
-Plug 'ncm2/ncm2-bufword' " buffer keyword completion
-Plug 'ncm2/ncm2-path' " filepath completion
-Plug 'ncm2/ncm2-jedi'
-Plug 'davidhalter/jedi-vim'
-"Plug 'OmniSharp/omnisharp-vim'
-"Plug 'neoclide/coc.nvim', {'branch': 'release'}
-"Plug 'tpope/vim-dispatch' " async build dispatcher, for omnisharp startup
-"Plug 'ervandew/supertab' " perform all vim insert mode completions with Tab
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build', 'branch': 'main' }
 Plug 'jiangmiao/auto-pairs' " auto-insert close brackets, braces, etc.
 Plug 'tpope/vim-commentary' " comment-out by shortcut 'gc'
 
@@ -120,6 +112,7 @@ set guitablabel=%N/\ %t\ %M
 set fillchars+=vert:\  " remove chars from separators
 set breakindent " preserve horizontal whitespace when wrapping
 set showbreak=..
+set signcolumn=yes
 
 " Enable folding
 set foldmethod=indent
@@ -165,7 +158,7 @@ nmap <F9> :bprev<CR>
 nmap <F10> :bnext<CR>
 
 " split windows
-map <C-i> <C-W>i
+map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
@@ -233,14 +226,6 @@ nnoremap <C-a> <Esc>
 nnoremap <C-x> <Esc>
 
 " python settings
-" neovim python providers
-if !empty(glob("$PYENV_ROOT/versions/py2nvim/bin/python"))
-    let g:python_host_prog = '$PYENV_ROOT/versions/py2nvim/bin/python'
-endif
-if !empty(glob("$PYENV_ROOT/versions/py3nvim/bin/python3"))
-    let g:python3_host_prog = '$PYENV_ROOT/versions/py3nvim/bin/python3'
-endif
-
 au BufNewFile,BufRead,BufEnter *.py
     \  set tabstop=4
     \| set softtabstop=4
@@ -327,51 +312,38 @@ let g:ctrlp_working_path_mode = 0 " disable working directory searching
 " FlyGrep settings
 nnoremap <leader>s :FlyGrep<cr>
 
-" ncm2
-" enable ncm2 for all buffers
-autocmd BufEnter * call ncm2#enable_for_buffer()
-" :help Ncm2PopupOpen for more information
-set completeopt=noinsert,menuone,noselect
-" make it FAST
-let ncm2#popup_delay=5
-let ncm2#complete_length=[[1,1]]
-let g:ncm2#watcher = 'substrfuzzy'
-set pumheight=5
-" When the  <Enter> key is pressed whiel the popup menu is visible, it only
-" hides the menu. Use this mapping to close the menu and also start a new line.
-inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
-" Use <TAB> to select the popup menu:
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" wrap existing omnifunc
-" Note that omnifunc does not run in the background and may probably block the
-" editor. If you don't want to be blocked by omnifunc too often, you could
-" add 180ms delay before the omni wrapper:
-"  'on_complete': ['ncm2#on_complete#delay', 180,
-"               \ 'ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
-au User Ncm2Plugin call ncm2#register_source({
-        \ 'name': 'css',
-        \ 'priority': 9,
-        \ 'subscope_enable': 1,
-        \ 'scope': ['css','scss'],
-        \ 'mark': 'css',
-        \ 'word_pattern': '[\w\-]+',
-        \ 'complete_pattern': ':\s*',
-        \ 'on_complete': ['ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
-        \ })
-
-" jedi
-let g:jedi#auto_initialization = 1
-let g:jedi#completions_enabled = 0
-let g:jedi#auto_vim_configuration = 0
-let g:jedi#smart_auto_mappings = 0
-let g:jedi#popup_on_dot = 0
-let g:jedi#completions_command = ""
-let g:jedi#show_call_signatures = "1"
-let g:jedi#show_call_signatures_delay = 0
-let g:jedi#use_tabs_not_buffers = 0
-let g:jedi#show_call_signatures_modes = 'i' " ni = also in normal mode
-let g:jedi#enable_speed_debugging = 0
+" Coc
+" Use tab for trigger completion with characters ahead and navigate
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+" Use <c-space> to trigger completion
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+" Use K to show documentation in preview window
+nnoremap <silent> K :call ShowDocumentation()<CR>
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+" Symbol renaming
+nmap <leader>rn <Plug>(coc-rename)
 
 " impsort
 hi pythonImportedObject ctermfg=127
@@ -379,10 +351,8 @@ hi pythonImportedFuncDef ctermfg=127
 hi pythonImportedClassDef ctermfg=127
 
 " supertab
-let g:SuperTabDefaultCompletionType = 'context'
-let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
-let g:SuperTabDefaultCompletionTypeDiscovery = ["&omnifunc:<c-x><c-o>","&completefunc:<c-x><c-n>"]
-let g:SuperTabClosePreviewOnPopupClose = 1
+"let g:SuperTabDefaultCompletionType = "<c-n>"
+let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 
 " ALE
 let g:ale_list_window_size = 4
@@ -414,7 +384,7 @@ let NERDTreeShowHidden=1 " Show hidden files in NerdTree buffer.
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 " Hide .pyc files
-let NERDTreeIgnore=['\.pyc$', '\~$']
+let NERDTreeIgnore=['\.pyc$', '^__pycache__$', '\~$']
 let g:nerdtree_tabs_open_on_gui_startup = 2
 let g:nerdtree_tabs_open_on_console_startup = 2
 
