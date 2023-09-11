@@ -15,7 +15,6 @@ call plug#begin()
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'ctrlpvim/ctrlp.vim' " fuzzy search files
-Plug 'wsdjeg/FlyGrep.vim' " awesome grep on the fly
 
 " theme
 Plug 'drewtempelmeyer/palenight.vim'
@@ -200,6 +199,10 @@ nnoremap <silent> <expr> 0 ScreenMovement("0")
 nnoremap <silent> <expr> ^ ScreenMovement("^")
 nnoremap <silent> <expr> $ ScreenMovement("$")
 
+" Navigate quickfix list with ease
+nnoremap <silent> [q: cprevious<CR>
+nnoremap <silent> ]q: cnext<CR>
+
 " Remove all trailing whitespace by pressing C-S
 nnoremap <C-S> :let _s@=/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
@@ -303,14 +306,12 @@ let python_highlight_all=1
 " fzf
 nnoremap <silent> <Leader>h: :History:<CR>
 nnoremap <silent> <Leader>h/ :History/<CR>
+nnoremap <leader>p :Rg<CR>
 
 " ctrl-p
 let g:ctrlp_custom_ignore = '\v\.(npy|jpg|pyc|so|dll)$'
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 let g:ctrlp_working_path_mode = 0 " disable working directory searching
-
-" FlyGrep settings
-nnoremap <leader>s :FlyGrep<cr>
 
 " Coc
 " Use tab for trigger completion with characters ahead and navigate
@@ -319,10 +320,6 @@ inoremap <silent><expr> <TAB>
       \ CheckBackspace() ? "\<Tab>" :
       \ coc#refresh()
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-" Make <CR> to accept selected completion item or notify coc.nvim to format
-" <C-g>u breaks current undo, please make your own choice
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 function! CheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
@@ -349,10 +346,6 @@ nmap <leader>rn <Plug>(coc-rename)
 hi pythonImportedObject ctermfg=127
 hi pythonImportedFuncDef ctermfg=127
 hi pythonImportedClassDef ctermfg=127
-
-" supertab
-"let g:SuperTabDefaultCompletionType = "<c-n>"
-let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 
 " ALE
 let g:ale_list_window_size = 4
