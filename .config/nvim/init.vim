@@ -91,8 +91,7 @@ set number relativenumber " show line numbers
 set smartcase " better case-sensitivity when searching
 set wrapscan " begin search from top of file when nothing is found anymore
 set noeb vb t_vb=
-set formatoptions-=t
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+autocmd FileType * setlocal formatoptions-=t formatoptions-=c formatoptions-=r formatoptions-=o
 set fileformats=unix
 set encoding=utf-8
 set clipboard+=unnamedplus
@@ -313,6 +312,9 @@ let g:ctrlp_custom_ignore = '\v\.(npy|jpg|pyc|so|dll)$'
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 let g:ctrlp_working_path_mode = 0 " disable working directory searching
 
+" vim-commentary
+map <C-_> gcc
+
 " Coc
 " Use tab for trigger completion with characters ahead and navigate
 inoremap <silent><expr> <TAB>
@@ -341,6 +343,8 @@ function! ShowDocumentation()
 endfunction
 " Symbol renaming
 nmap <leader>rn <Plug>(coc-rename)
+" Disable autocomplete in markdown
+autocmd FileType markdown let b:coc_suggest_disable = 1
 
 " impsort
 hi pythonImportedObject ctermfg=127
@@ -361,10 +365,14 @@ let g:ale_sign_warning = '•'
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = '0'
 let g:ale_lint_on_insert_leave = 0
-let g:ale_lint_on_save = '1'
-let g:ale_fix_on_save = 1
+let g:ale_lint_on_save = 1
+let g:ale_fixers = {
+\   'javascript': ['prettier', 'eslint'],
+\   }
+let g:ale_fix_on_save = 0
 nmap <silent> <C-M> <Plug>(ale_previous_wrap)
 nmap <silent> <C-m> <Plug>(ale_next_wrap)
+map <leader>f :ALEFix<CR>
 
 " vimgutter
 let g:gitgutter_override_sign_column_highlight = 0
