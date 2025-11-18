@@ -106,7 +106,6 @@ set textwidth=0
 set wrap
 set linebreak
 set nolist  " list disables linebreak
-set guitablabel=%N/\ %t\ %M
 set fillchars+=vert:\  " remove chars from separators
 set breakindent " preserve horizontal whitespace when wrapping
 set showbreak=..
@@ -226,6 +225,17 @@ nnoremap <leader>v :source $MYVIMRC<CR>
 au BufEnter * if &buftype == 'terminal' | :startinsert | endif
 nnoremap <C-a> <Esc>
 nnoremap <C-x> <Esc>
+
+" ====== LSP settings ======
+
+" rust settings
+" https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#rust_analyzer
+lua vim.lsp.enable('rust_analyzer')
+let g:rustfmt_autosave = 1
+
+" C# settings
+" https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#csharp_ls
+lua vim.lsp.enable('csharp_ls')
 
 " python settings
 au BufNewFile,BufRead,BufEnter *.py
