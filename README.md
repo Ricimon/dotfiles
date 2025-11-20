@@ -23,8 +23,8 @@
         - [fzf-z](https://github.com/andrewferrier/fzf-z)
         - [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
     - [nerd fonts](https://www.nerdfonts.com/font-downloads)
-- [homebrew](https://brew.sh) (macOS)
-    - `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
+- [homebrew](https://brew.sh)
+    - `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
 - vim
     - use `vim-gtk` for Windows copy-paste support on WSL
 - [neovim](https://github.com/neovim/neovim)
