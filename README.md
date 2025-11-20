@@ -29,7 +29,7 @@
     - use `vim-gtk` for Windows copy-paste support on WSL
 - [neovim](https://github.com/neovim/neovim)
     - `brew install neovim` ([macOS](https://github.com/neovim/neovim/wiki/Installing-Neovim#macos--os-x))
-    - [AppImage (Linux)](https://github.com/neovim/neovim/wiki/Installing-Neovim#appimage-universal-linux-package)
+    - [AppImage (Linux)](https://github.com/neovim/neovim/blob/master/INSTALL.md#appimage-universal-linux-package)
     - [vim-plug](https://github.com/junegunn/vim-plug)
         - auto-installed in `.nvimrc`, manal install/update: `:PlugInstall`/`:PlugUpdate`
     - `sudo apt install xclip` for Windows copy-paste support on WSL
