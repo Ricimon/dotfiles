@@ -112,6 +112,8 @@ export ZSH_TMUX_AUTOCONNECT=false
 # Why this is before zgen: https://github.com/ohmyzsh/ohmyzsh/issues/1563
 [ -d ~/.dircolors ] && type dircolors &> /dev/null && eval `dircolors ~/.dircolors/dircolors-solarized/dircolors.ansi-dark`
 
+[ -f /home/linuxbrew/.linuxbrew/bin/brew ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
 # load zgen
 source "$HOME/.zgen/zgen.zsh"
 
