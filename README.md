@@ -12,6 +12,7 @@
             - `sudo apt-get install tmux`
         - [tpm](https://github.com/tmux-plugins/tpm)
             - `git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm` (auto-installed on tmux start)
+            - `prefix` + <kbd>I</kbd> to install plugins
             - plugins:
                 - [tmux-power](https://github.com/wfxr/tmux-power)
                 - [tmux-resurrect](https://github.com/tmux-plugins/tmux-resurrect)
