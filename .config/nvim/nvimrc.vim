@@ -30,41 +30,11 @@ Plug 'preservim/tagbar' " shows tags in a bar (functions etc) for easy browsing
 Plug 'tpope/vim-fugitive' " airline git integration
 Plug 'airblade/vim-gitgutter' " displays git changes in file
 
-" directory structure (ctrl+n to activate)
-Plug 'preservim/nerdtree'
-Plug 'jistr/vim-nerdtree-tabs'
-Plug 'ryanoasis/vim-devicons'
-"Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " does not work with Neovim 0.8
-
 " tabline
 Plug 'nanozuki/tabby.nvim', { 'branch': 'main' }
 
 " autocomplete
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build', 'branch': 'main' }
-Plug 'jiangmiao/auto-pairs' " auto-insert close brackets, braces, etc.
 Plug 'tpope/vim-commentary' " comment-out by shortcut 'gc'
-
-" linting
-Plug 'dense-analysis/ale'
-Plug 'vim-python/python-syntax'
-Plug 'nvie/vim-flake8' " syntax+style checker for python
-Plug 'Vimjas/vim-python-pep8-indent' " indentation for python
-Plug 'tmhedberg/SimpylFold' " python code folding
-
-" syntax highlighting
-Plug 'sheerun/vim-polyglot'
-Plug 'OrangeT/vim-csharp'
-Plug 'pangloss/vim-javascript'
-Plug 'leafgarland/typescript-vim'
-Plug 'MaxMEllon/vim-jsx-pretty'
-Plug 'peitalin/vim-jsx-typescript'
-Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
-Plug 'jparise/vim-graphql'
-
-" python (non-linting)
-Plug 'jmcantrell/vim-virtualenv' " venv support for python
-Plug 'tweekmonster/impsort.vim' " color and sort imports
 
 " misc
 Plug 'tpope/vim-obsession' " save vim sessions
@@ -99,9 +69,9 @@ set viminfo='20,<1000" " allow copying of more than 50 lines to other applicatio
 set mouse=a " enable scrolling with mouse wheel
 
 set expandtab
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set tabstop=2
+set shiftwidth=2
+set softtabstop=-1
 set textwidth=0
 set wrap
 set linebreak
@@ -226,83 +196,6 @@ au BufEnter * if &buftype == 'terminal' | :startinsert | endif
 nnoremap <C-a> <Esc>
 nnoremap <C-x> <Esc>
 
-" ====== LSP settings ======
-
-" rust settings
-" https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#rust_analyzer
-lua vim.lsp.enable('rust_analyzer')
-let g:rustfmt_autosave = 1
-
-" C# settings
-" https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#csharp_ls
-lua vim.lsp.enable('csharp_ls')
-
-" python settings
-au BufNewFile,BufRead,BufEnter *.py
-    \  set tabstop=4
-    \| set softtabstop=4
-    \| set shiftwidth=4
-    \| set textwidth=79
-    \| set expandtab
-    \| set autoindent
-    \| set fileformat=unix
-
-highlight BadWhitespace ctermbg=red guibg=darkred
-au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
-
-" easy breakpoint python
-au FileType python map <silent> <leader>b ofrom pudb import set_trace; set_trace()<Esc>
-au FileType python map <silent> <leader>B Ofrom pudb import set_trace; set_trace()<Esc>
-au FileType python map <silent> <leader>j ofrom pdb import set_trace; set_trace()<Esc>
-au FileType python map <silent> <leader>J Ofrom pdb import set_trace; set_trace()<Esc>
-
-" highlight python and self function
-autocmd BufEnter * syntax match Type /\v\.[a-zA-Z0-9_]+\ze(\[|\s|$|,|\]|\)|\.|:)/hs=s+1
-autocmd BufEnter * syntax match pythonFunction /\v[[:alnum:]_]+\ze(\s?\()/
-hi def link pythonFunction Function
-autocmd BufEnter * syn match Self "\(\W\|^\)\@<=self\(\.\)\@="
-highlight self ctermfg=239
-
-" move between defs python:
-" NOTE: this breaks shortcuts with []
-nnoremap [[ [m
-nnoremap ]] ]m
-
-nnoremap <silent><nowait> [ [[
-nnoremap <silent><nowait> ] ]]
-
-function! MakeBracketMaps()
-    nnoremap <silent><nowait><buffer> [ :<c-u>exe 'normal '.v:count.'[m'<cr>
-    nnoremap <silent><nowait><buffer> ] :<c-u>exe 'normal '.v:count.']m'<cr>
-endfunction
-
-augroup bracketmaps
-    autocmd!
-    autocmd FileType python call MakeBracketMaps()
-augroup END
-
-" python with virtualenv support
-py << EOF
-import os
-import sys
-if 'VIRTUAL_ENV' in os.environ:
-    project_base_dir = os.environ['VIRTUAL_ENV']
-    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-    with open(activate_this) as f:
-        code = compile(f.read(), activate_this, 'exec')
-        exec(code, dict(__file__=activate_this))
-EOF
-
-" javascript/typescript settings
-" rescan entire buffer when highlighting to fix syntax highlighting desyncing
-autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
-autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
-
-au BufNewFile,BufRead,BufEnter *.html,*.css,*.js,*.jsx,*.ts,*.tsx
-    \  set tabstop=2
-    \| set softtabstop=2
-    \| set shiftwidth=2
-
 " ===== PLUGIN SETTINGS =====
 
 " theme
@@ -325,79 +218,9 @@ let g:ctrlp_working_path_mode = 0 " disable working directory searching
 " vim-commentary
 map <C-_> gcc
 
-" Coc
-" Use tab for trigger completion with characters ahead and navigate
-inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1) :
-      \ CheckBackspace() ? "\<Tab>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-" Use <c-space> to trigger completion
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
-" Use K to show documentation in preview window
-nnoremap <silent> K :call ShowDocumentation()<CR>
-function! ShowDocumentation()
-  if CocAction('hasProvider', 'hover')
-    call CocActionAsync('doHover')
-  else
-    call feedkeys('K', 'in')
-  endif
-endfunction
-" Symbol renaming
-nmap <leader>rn <Plug>(coc-rename)
-" Disable autocomplete in markdown
-autocmd FileType markdown let b:coc_suggest_disable = 1
-
-" impsort
-hi pythonImportedObject ctermfg=127
-hi pythonImportedFuncDef ctermfg=127
-hi pythonImportedClassDef ctermfg=127
-
-" ALE
-let g:ale_list_window_size = 4
-let g:ale_sign_column_always = 0
-let g:ale_open_list = 1
-let g:ale_keep_list_window_open = '1'
-
-" Options are in .pylintrc!
-highlight VertSplit ctermbg=253
-
-let g:ale_sign_error = '!!'
-let g:ale_sign_warning = '•'
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_enter = '0'
-let g:ale_lint_on_insert_leave = 0
-let g:ale_lint_on_save = 1
-let g:ale_fixers = {
-\   'javascript': ['prettier', 'eslint'],
-\   }
-let g:ale_fix_on_save = 0
-nmap <silent> <C-M> <Plug>(ale_previous_wrap)
-nmap <silent> <C-m> <Plug>(ale_next_wrap)
-map <leader>f :ALEFix<CR>
-
 " vimgutter
 let g:gitgutter_override_sign_column_highlight = 0
 let g:gitgutter_map_keys = 0
-
-" NERDTree bindings and settings
-map <C-n> <plug>NERDTreeTabsToggle<CR>
-let NERDTreeShowHidden=1 " Show hidden files in NerdTree buffer.
-" open a NERDTree automatically when vim starts up if no files were specified
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-" Hide .pyc files
-let NERDTreeIgnore=['\.pyc$', '^__pycache__$', '\~$']
-let g:nerdtree_tabs_open_on_gui_startup = 2
-let g:nerdtree_tabs_open_on_console_startup = 2
 
 " tagbar
 map <C-t> :set nosplitright<CR>:TagbarToggle<CR>:set splitright<CR>

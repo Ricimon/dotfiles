@@ -5,13 +5,10 @@
 - clean: ~/
 
 - link:
-    ~/.config/nvim/init.vim:
-        create: true
-        path: .config/nvim/init.vim
-    ~/.config/nvim/after/ftplugin/:
+    ~/.config/nvim/:
         create: true
         glob: true
-        path: .config/nvim/after/ftplugin/**
+        path: .config/nvim/**
     ~/.bash_aliases: .bash_aliases
     ~/.bashrc: .bashrc
     ~/.common.bash: .common.bash

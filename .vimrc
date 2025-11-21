@@ -18,9 +18,10 @@ set formatoptions-=t
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 set fileformats=unix
 
-set tabstop=4
-set softtabstop=0 expandtab
-set shiftwidth=4
+set expandtab
+set tabstop=2
+set shiftwidth=2
+set softtabstop=-1
 set textwidth=0
 set wrap
 set linebreak
