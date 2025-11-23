@@ -7,8 +7,17 @@ return {
       "nvim-tree/nvim-web-devicons",
     },
     config = function()
-      require("nvim-tree").setup {}
+      require("nvim-tree").setup {
+        open_on_tab = true,
+      }
     end,
+  },
+
+  {
+    "m4xshen/autoclose.nvim",
+    config = function()
+      require("autoclose").setup()
+    end
   },
 
   -- Collection of common configurations for the Nvim LSP client
@@ -37,12 +46,6 @@ return {
   },
   -- Snippet engine
   "hrsh7th/vim-vsnip",
-  -- Adds extra functionality over rust analyzer
-  {
-    "mrcjkb/rustaceanvim",
-    version = "^6",
-    lazy = false,
-  },
 
   -- Optional
   "nvim-lua/popup.nvim",
