@@ -4,7 +4,7 @@ return {
     'nvimtools/none-ls-extras.nvim',
     'jay-babu/mason-null-ls.nvim',
     'williamboman/mason.nvim',
-  }zx
+  }
   config = function()
     require('mason-null-ls').setup {
       -- list of formatters & linters for mason to install
