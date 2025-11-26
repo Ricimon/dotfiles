@@ -4,9 +4,10 @@ return {
     'nvimtools/none-ls-extras.nvim',
     'jay-babu/mason-null-ls.nvim',
     'williamboman/mason.nvim',
-  },
+  }zx
   config = function()
     require('mason-null-ls').setup {
+      -- list of formatters & linters for mason to install
       ensure_installed = {
         'ruff',
         'prettier',
@@ -25,7 +26,9 @@ return {
 
     local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
     null_ls.setup {
+      -- debug = true, -- Enable debug mode. Inspect logs with :NullLsLog.
       sources = sources,
+      -- you can reuse a shared lspconfig on_attach callback here
       on_attach = function(client, bufnr)
         if client.supports_method 'textDocument/formatting' then
           vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
