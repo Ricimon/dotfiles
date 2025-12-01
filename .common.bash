@@ -15,6 +15,8 @@ if [ -d ~/.pyenv ]; then
     export PATH="$PYENV_ROOT/bin:$PATH"
 fi
 
+[ -f ~/.cargo/env ] && . ~/.cargo/env
+
 # computer-specific bash configs
 [ -f ~/.config.bash ] && source ~/.config.bash
 
