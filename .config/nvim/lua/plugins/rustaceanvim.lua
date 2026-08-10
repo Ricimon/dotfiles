@@ -13,6 +13,7 @@ return {
           lsp_map("n", "K", function() vim.cmd.RustLsp({ "hover", "actions" }) end, "Rust hover docs")
           lsp_map("n", "J", function() vim.cmd.RustLsp("joinLines") end, "Rust join lines")
           lsp_map("n", "<Leader>ca", function() vim.cmd.RustLsp("codeAction") end, "Rust Code action")
+          lsp_map("n", "<Leader>rn", vim.lsp.buf.rename, "Rename")
           lsp_map("n", "<Leader>rue", function() vim.cmd.RustLsp("explainError") end, "Rust error explain")
           lsp_map("n", "<Leader>rud", function() vim.cmd.RustLsp("openDocs") end, "Rust docs")
           lsp_map("n", "<Leader>rum", function() vim.cmd.RustLsp("expandMacro") end, "Rust expand macro")
