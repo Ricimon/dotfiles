@@ -11,6 +11,33 @@ vim.g.loaded_netrwPlugin = 1
 -- optionally enable 24-bit colour
 vim.opt.termguicolors = true
 
+local function nvim_tree_on_attach(bufnr)
+  local api = require("nvim-tree.api")
+
+  local function opts(desc)
+    return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+  end
+
+  local swap_then_open_tab = function()
+    local api = require("nvim-tree.api")
+    local node = api.tree.get_node_under_cursor()
+    vim.cmd("wincmd l")
+    api.node.open.tab(node)
+    api.tree.open()
+    vim.cmd("wincmd l")
+  end
+
+  -- default mappings
+  api.map.on_attach.default(bufnr)
+
+  -- custom mappings
+  vim.keymap.set("n", "<C-t>", swap_then_open_tab, opts("Open: New Tab"))
+end
+
+require("nvim-tree").setup({
+  on_attach = nvim_tree_on_attach,
+})
+
 -- keybinds
 vim.api.nvim_set_keymap('n', '<C-n>', ':NvimTreeFindFileToggle<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<F2>', '<cmd>lua vim.diagnostic.open_float()<CR>', { noremap = true, silent = true })
